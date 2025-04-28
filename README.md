@@ -12,5 +12,5 @@ This template supports English and Chinese languages.
 ## Plan
 
 - Enable multiple authors.
-
+- Enable emails.
 

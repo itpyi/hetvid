@@ -1,7 +1,7 @@
 // modified from https://github.com/mbollmann/typst-kunskap.git
 // #import "@preview/linguify:0.4.2": *
 // Set theorem environments
-#import "@local/dingli:0.1.0": *
+#import "dingli.typ": *
 
 #let parvirtual = {
 "" 
@@ -19,8 +19,8 @@ context v(-par.spacing -  measure("").height)
 #let hetvid(
     // Metadata
     title: [Title],
-    author: "Phybo",
-    affiliation: "Ci'en Translation College of Xijing, Tang Empire",
+    author: "itpyi",
+    affiliation: "",
     header: "",
     date-created: datetime.today().display(),
     date-modified: datetime.today().display(),
@@ -145,12 +145,19 @@ context v(-par.spacing -  measure("").height)
     )
     show raw.where(block: true): set par(justify: false)
 
+    
+
     // Display inline code with shaded background while retaining the correct baseline
-    show raw.where(block: false): box.with(
-        inset: (x: 3pt, y: 0pt),
-        outset: (x: -1pt, y: 3pt),
-        fill: block-bg-color,
-    )
+
+    show raw.where(block: false): it => {
+        show: box.with(
+            inset: (x: 3pt, y: 0pt),
+            outset: (x: -1pt, y: 3pt),
+            fill: block-bg-color,)
+        show ".": "." + sym.zws
+        show "\\": "\\" + sym.zws
+        it
+    }
 
     // Set block quote styling
     show quote: set block(above: 1.5em, below: 1.5em)
@@ -216,7 +223,7 @@ context v(-par.spacing -  measure("").height)
     }
     
     // Set theorem environments
-    show: thmrules
+    show: dingli-rules
 
     // Set page header and footer (numbering)
     set page(

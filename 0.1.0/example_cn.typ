@@ -1,15 +1,19 @@
 #import "hetvid.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
+#import "@preview/treet:0.1.1": *
+
+
+#let version = "0.1.0"
 
 #show: hetvid.with(
-  title: [hetvid：一个轻量级笔记模板],
-  author: "飞飞",
+  title: [hetvid：一个轻量级笔记的Typst模板],
+  author: "itpyi",
   affiliation: "大唐西京慈恩翻译学院",
   header: "说明文档",
   date-created: "2025-03-27",
-  date-modified: "2025-03-30",
-  abstract: [这是一个typst中文笔记模板。],
+  date-modified: "2025-04-28",
+  abstract: [Hetvid是一个Typst模板，用于创作轻量级的笔记。本文是该模板的实例和说明文档，在介绍特性的同时，也会谈及作者的设计理念。],
   toc: true,
   lang: "zh",
 )
@@ -17,25 +21,98 @@
 // #show math.equation: set text(font: "Libertinus Serif")
 // #set text(font: "Libertinus Math")
 
-本文档旨在说明本模板的用法、特性和背后的设计理念，着重强调与typst预设值不同的情况。本模板最直接的使用方法即直接修改此文档。
+在本文中，以#text-muted[浅色字体]表示的内容是尚未实现的功能或特性。
 
-= 调用
+= 调用本模板
 
-将`hetvid.typ`复制到工作目录下，通过如下代码即可指定相应信息生成标题。
+调用模板的方法有如下三种：
+- 将模板文件复制到工作目录下，在文档中通过
+  ```typ
+  #import "hetvid.typ": *
+  ```
+  调用。
+- 将该项目复制到本地包目录下，在文档中通过
+  #raw(
+    block: true,
+    lang: "typst",
+    "#import \"@local/hetvid:"+version+"\": *"
+  )
+  调用。
+#text-muted[
+  - 在本模板发布之后，用户或可通过
+    #raw(
+      block: true,
+      lang: "typst",
+      "#import \"@preview/hetvid:"+version+"\": *"
+    )
+    调用。
+]
+我们推荐使用第二种方法。
+
+具体来说，本地包目录为`{data-dir}/typst/packages/local/`，其中`{data-dir}`为
+- Linux系统：`$XDG_DATA_HOME`或`~/.local/share`；
+- MacOS：`~/Library/Application Support`；
+- Windows系统：`%APPDATA%`。 其中`%APPDATA`表示一个变量，一般为
+  ```
+  C:\Users\USERNAME\AppData\Roaming
+  ```
+  可在 cmd 中通过下述命令查看
+  ```shell
+  $ echo The value of ^%AppData^% is %AppData%
+    The value of %AppData% is C:\Users\USERNAME\AppData\Roaming
+  ```
+  参见 https://superuser.com/questions/632891/what-is-appdata。
+用户可将该项目复制到本地包目录下。例如对于 Windows 系统，最终应存在如下文件夹：
+#raw(
+    block: true,
+    "C:\Users\USERNAME\AppData\Roaming\typst\packages\local\hetvid\\"+version+"\\"
+  )
+此时用户可通过`#import`命令来使用该模板。
+
+
+引入模板后，通过如下代码即可指定相应信息。
 ```typ
-#import "hetvid.typ": *hetvid_cn*
-#show: light-note.with(
-  title: [笔记模板],
-  author: "飞飞",
-  header: "说明文档", // 题头信息, 可以表示文档属性
-  date-created: "2025-03-27",
-  date-modified: "2025-03-30",
-  abstract: [这是摘要],
-  toc: true, // 是否显示目录, 默认为 true
-  lang: "zh", // 设置语言为汉语
-)
+#let hetvid(
+    // 元数据
+    title: [Title],
+    author: "itpyi",
+    affiliation: "大唐西京慈恩翻译学院",
+    header: "说明文档", //出现在页眉左侧
+    date-created: "2025-03-27", //预设为当天
+    date-modified: "2025-04-28", //预设为当天
+    abstract: [], //摘要
+    toc: true, //是否显示目录
+
+    // 纸张大小
+    paper-size: "a4",
+
+    // 语言，默认为英文
+    lang: "zh", 
+
+    // 字体族，见后文说明
+    body-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Songti SC"),
+    body-font-size: 11pt,
+    body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
+    raw-font: ("New Computer Modern Mono", "Cascadia Code", "Menlo", "CodeNewRoman Nerd Font", "Latin Modern Mono"),
+    raw-font-size: 10pt,
+    caption-size: 10pt,
+    heading-font: ("Helvetica", "New Computer Modern Sans","Latin Modern Sans",  "Libertinus Sans", "Noto Sans","Heiti SC"),
+    heading-font-weight: "regular",
+    math-font: ("New Computer Modern Math","Latin Modern Math", "Libertinus Math", "Songti SC"),
+    emph-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Kaiti SC"),
+
+    // 颜色
+    link-color: link-color, //链接颜色
+    muted-color: muted-color, //弱文字颜色，即本文档中浅色字体
+    block-bg-color: block-bg-color, //代码块等的背景颜色
+
+    // 段落格式
+    ind: 1.5em, //首行缩进，英文默认为 1.5em，中文为 2em
+    justify: true, //是否两端对齐，默认为是
+
+    // 引用和参考文献格式，英文默认为 springer-mathphys，中文默认为 gb-7714-2015-numeric
+    bib-style: "springer-mathphys",
 ```
-未来或将发布此模板，使得用户可以直接使用而无需复制文件。
 
 
 = 字体
@@ -286,7 +363,7 @@ set bibliography(style: "gb-7714-2015-numeric")
 但此方案会导致其他问题，例如行间公式后会出现缩进。见下例：
 
 #block(
-  fill: luma(230),
+  fill: block-bg-color,
   inset: 8pt,
   width: 100%,
   align(left,
@@ -299,7 +376,7 @@ set bibliography(style: "gb-7714-2015-numeric")
 这一缩进是不合理的，正确效果如下：
 
 #block(
-  fill: luma(230),
+  fill: block-bg-color,
   inset: 8pt,
   width: 100%,
   par(first-line-indent: (amount: 2em, all: true) ,[考虑一元二次方程])+
@@ -359,6 +436,12 @@ set bibliography(style: "gb-7714-2015-numeric")
 - 关闭自动空格后，未手动添加空格：这是一个typst模板。
 #set text(cjk-latin-spacing: auto)
 开启自动空格后是否手动添加空格会影响空格大小不是一个好的特性。目前来说，我们可以只使用自动添加的空格而避免手动添加。采取此种策略，则引用后接文字而非标点时，时应使用`#ref(<$KEY>)`命令而非`@$KEY`命令。参考文献同理，已在#ref(<文献引用>)中讨论。
+
+= 设计理念和文化
+
+该模板得名于“因明”的梵语拉丁转写hetuvidyā。因明学是佛教的逻辑论辩之学，由玄奘法师引入中国。
+
+我们希望该模板有如下属性：
 
 #set par(justify: false)
 

@@ -1,2 +1,5 @@
 # hetvid.pdf in all version folders
 **/hetvid.pdf
+# Ignore .vscode folder and all files in it
+.vscode/
+.vscode/*

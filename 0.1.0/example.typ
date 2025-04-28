@@ -1,11 +1,11 @@
 #import "hetvid.typ": *
-// #import "dingli.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
 
 #show: hetvid.with(
-  title: [hetvid: A template for light notes],
+  title: [hetvid: A template for lightweight notes],
   author: "itpyi",
+  affiliation: "Xijing Ci'en Institute of Translation, Tang Empire",
   header: "Instruction",
   date-created: "2025-03-27",
   date-modified: "2025-04-22",
