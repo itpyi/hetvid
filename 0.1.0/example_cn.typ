@@ -7,7 +7,7 @@
 #let version = "0.1.0"
 
 #show: hetvid.with(
-  title: [hetvid：一个轻量级笔记的Typst模板],
+  title: [Hetvid：一个轻量级笔记的Typst模板],
   author: "itpyi",
   affiliation: "大唐西京慈恩翻译学院",
   header: "说明文档",

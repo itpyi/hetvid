@@ -3,7 +3,7 @@
 #import "@preview/cetz:0.3.4": canvas, draw
 
 #show: hetvid.with(
-  title: [hetvid: A template for lightweight notes],
+  title: [Hetvid: A Typst template for lightweight notes],
   author: "itpyi",
   affiliation: "Xijing Ci'en Institute of Translation, Tang Empire",
   header: "Instruction",
