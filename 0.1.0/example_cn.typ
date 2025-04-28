@@ -5,7 +5,7 @@
 #show: hetvid.with(
   title: [hetvid：一个轻量级笔记模板],
   author: "飞飞",
-  affiliation: "清华大学高等研究院",
+  affiliation: "大唐西京慈恩翻译学院",
   header: "说明文档",
   date-created: "2025-03-27",
   date-modified: "2025-03-30",

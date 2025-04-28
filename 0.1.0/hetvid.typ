@@ -20,7 +20,7 @@ context v(-par.spacing -  measure("").height)
     // Metadata
     title: [Title],
     author: "Phybo",
-    affiliation: "Institute for Advanced Study, Tsinghua University",
+    affiliation: "Ci'en Translation College of Xijing, Tang Empire",
     header: "",
     date-created: datetime.today().display(),
     date-modified: datetime.today().display(),
