@@ -116,6 +116,9 @@
     en: "springer-mathphys",
     zh: "gb-7714-2015-numeric"
   )
+    
+  // 定理编号的层级，默认为 1，此时定理在每个一级标题下编号，详后
+  thm-num-lv: 1,
 )
 ```
 

@@ -12,8 +12,11 @@
 context v(-par.spacing -  measure("").height)
 }
 
-#let thm_num(level: 1) = {
+#let numbering-level = state("level", 1)
+
+#let thm-num() = {
   (..nums) => {
+    let level = numbering-level.get()
     if level == 0 {
       return ""
     } else {
@@ -30,9 +33,15 @@ context v(-par.spacing -  measure("").height)
   }
 }
 
-#let theorem(body, name: none, kind: "theorem", type: "Theorem", count: c_thm, indent: none, level: 1) = {
-  let numbering = thm_num(level: level)
-  let headnumber = context counter(heading).get().at(0)
+#let theorem(
+  body, 
+  name: none, 
+  kind: "theorem", 
+  type: "Theorem", 
+  count: c_thm, 
+  indent: none,
+) = {
+  let numbering = thm-num()
   let thmnumber = context count.get().at(0)
   return (figure({
     count.step()
@@ -98,12 +107,13 @@ context v(-par.spacing -  measure("").height)
 #let tuilun = corollary.with(type: "推论", indent: true)
 #let dingyi = definition.with(type: "定义", indent: true)
 
-#let lizi = example.with(type: "例")
+#let lizi = example.with(type: "例", indent: true)
 
 #let zhengming = proof.with(type: "证明", indent: true)
 
 
 #let dingli-rules(doc, level: 1, upper: 2em, lower: 2em) = {
+  numbering-level.update(level)
   show heading: it => {
     if it.level <= level {
       for c in c_list {
@@ -133,7 +143,7 @@ context v(-par.spacing -  measure("").height)
     } else if it.element.func() == figure and it.element.kind in kind_list{
       link(
         it.element.location()
-      )[#it.element.supplement #thm_num(level: level)(..counter(heading).at(it.element.location()))#counter(figure.where(kind: it.element.kind)).at(it.element.location()).at(0)]
+      )[#it.element.supplement #thm-num()(..counter(heading).at(it.element.location()))#counter(figure.where(kind: it.element.kind)).at(it.element.location()).at(0)]
     } else {
       it
     }

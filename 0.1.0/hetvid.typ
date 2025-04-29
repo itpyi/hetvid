@@ -61,6 +61,9 @@ context v(-par.spacing -  measure("").height)
       zh: "gb-7714-2015-numeric",
     ),
 
+    // Numbering level of theorems
+    thm-num-lv: 1,
+
     // The main document body
     body
 ) = {
@@ -223,7 +226,7 @@ context v(-par.spacing -  measure("").height)
     }
     
     // Set theorem environments
-    show: dingli-rules
+    show: dingli-rules.with(level: thm-num-lv)
 
     // Set page header and footer (numbering)
     set page(
