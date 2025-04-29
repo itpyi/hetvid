@@ -2,6 +2,7 @@
 // #import "@preview/linguify:0.4.2": *
 // Set theorem environments
 #import "dingli.typ": *
+#import "@preview/zebraw:0.5.3": *
 
 #let parvirtual = {
 "" 
@@ -19,8 +20,8 @@ context v(-par.spacing -  measure("").height)
 #let hetvid(
     // Metadata
     title: [Title],
-    author: "itpyi",
-    affiliation: "",
+    author: "The author",
+    affiliation: "The affiliation",
     header: "",
     date-created: datetime.today().display(),
     date-modified: datetime.today().display(),
@@ -34,16 +35,16 @@ context v(-par.spacing -  measure("").height)
     lang: "en",
 
     // Fonts
-    body-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Songti SC"),
+    body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "SimSun", "serif"),
+    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+    heading-font: ("Helvetica", "Tahoma", "Arial", "STXihei", "华文细黑", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+    math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
+    emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
     body-font-size: 11pt,
     body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
-    raw-font: ("New Computer Modern Mono", "Cascadia Code", "Menlo", "CodeNewRoman Nerd Font", "Latin Modern Mono"),
-    raw-font-size: 10pt,
+    raw-font-size: 9pt,
     caption-size: 10pt,
-    heading-font: ("Helvetica", "New Computer Modern Sans","Latin Modern Sans",  "Libertinus Sans", "Noto Sans","Heiti SC"),
     heading-font-weight: "regular",
-    math-font: ("New Computer Modern Math","Latin Modern Math", "Libertinus Math", "Songti SC"),
-    emph-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Kaiti SC"),
 
     // Colors
     link-color: link-color,
@@ -55,7 +56,10 @@ context v(-par.spacing -  measure("").height)
     justify: true,
 
     // bibliography style, if lang == "zh", defult to be "gb-7714-2015-numeric"
-    bib-style: "springer-mathphys",
+    bib-style: (
+      en: "springer-mathphys",
+      zh: "gb-7714-2015-numeric",
+    ),
 
     // The main document body
     body
@@ -137,15 +141,11 @@ context v(-par.spacing -  measure("").height)
     
 
     // Display block code with padding and shaded background
-    show raw.where(block: true): block.with(
-        inset: (x: ind, y: 1em),
-        // outset: (y: 0em),
-        width: 100%,
-        fill: block-bg-color,
+    show: zebraw.with(
+        numbering-separator: true,
+        lang: false,
+        hanging-indent: true,
     )
-    show raw.where(block: true): set par(justify: false)
-
-    
 
     // Display inline code with shaded background while retaining the correct baseline
 
@@ -245,10 +245,7 @@ context v(-par.spacing -  measure("").height)
     )
 
     // set citation
-    if lang == "zh"{
-      bib-style = "gb-7714-2015-numeric"
-    }
-    set bibliography(style: bib-style)
+    set bibliography(style: bib-style.at(lang))
 
     // TYPESETTING THE DOCUMENT
     // -----------------------------------------------------------------------

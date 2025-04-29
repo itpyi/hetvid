@@ -34,7 +34,7 @@
 - 将该项目复制到本地包目录下，在文档中通过
   #raw(
     block: true,
-    lang: "typst",
+    lang: "typ",
     "#import \"@local/hetvid:"+version+"\": *"
   )
   调用。
@@ -42,7 +42,7 @@
   - 在本模板发布之后，用户或可通过
     #raw(
       block: true,
-      lang: "typst",
+      lang: "typ",
       "#import \"@preview/hetvid:"+version+"\": *"
     )
     调用。
@@ -70,48 +70,53 @@
 此时用户可通过`#import`命令来使用该模板。
 
 
-引入模板后，通过如下代码即可指定相应信息。
+引入模板后，通过如下代码即可指定相应信息。格式信息部分所有变量都给出了预设值，如果不需要修改这些默认值，则不用在调用时写出。
 ```typ
-#let hetvid(
-    // 元数据
-    title: [Title],
-    author: "itpyi",
-    affiliation: "大唐西京慈恩翻译学院",
-    header: "说明文档", //出现在页眉左侧
-    date-created: "2025-03-27", //预设为当天
-    date-modified: "2025-04-28", //预设为当天
-    abstract: [], //摘要
-    toc: true, //是否显示目录
+#show: hetvid.with(
+  // 标题信息
+  title: [Hetvid：一个轻量级笔记的Typst模板], 
+  author: "itpyi",
+  affiliation: "大唐西京慈恩翻译学院", 
+  header: "说明文档", //出现在页眉左侧
+  date-created: "2025-03-27", //预设为当天
+  date-modified: "2025-04-28", //预设为当天
+  abstract: [], //摘要，预设为空；当且仅当不为空时展示“摘要”章节
+  toc: true, //是否显示目录，预设值为是，可设为 false 以关闭之
 
-    // 纸张大小
-    paper-size: "a4",
+  // 语言，默认为英文，可更改为中文
+  lang: "zh", //更改为中文
 
-    // 语言，默认为英文
-    lang: "zh", 
+  // 下为格式信息，不修改则不用写出，有更改需求则写出需更改的项目即可
+  // 纸张大小，默认为 a4
+  paper-size: "a4",
 
-    // 字体族，见后文说明
-    body-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Songti SC"),
-    body-font-size: 11pt,
-    body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
-    raw-font: ("New Computer Modern Mono", "Cascadia Code", "Menlo", "CodeNewRoman Nerd Font", "Latin Modern Mono"),
-    raw-font-size: 10pt,
-    caption-size: 10pt,
-    heading-font: ("Helvetica", "New Computer Modern Sans","Latin Modern Sans",  "Libertinus Sans", "Noto Sans","Heiti SC"),
-    heading-font-weight: "regular",
-    math-font: ("New Computer Modern Math","Latin Modern Math", "Libertinus Math", "Songti SC"),
-    emph-font: ("New Computer Modern","Latin Modern Roman","Libertinus Serif","Noto Serif", "Kaiti SC"),
+  // 字体族，下为默认值
+  body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "SimSun", "serif"),
+  raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+  heading-font: ("Helvetica", "Tahoma", "Arial", "STXihei", "华文细黑", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+  math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
+  emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
+  body-font-size: 11pt,
+  body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
+  raw-font-size: 9pt,
+  caption-size: 10pt,
+  heading-font-weight: "regular",
 
-    // 颜色
-    link-color: link-color, //链接颜色
-    muted-color: muted-color, //弱文字颜色，即本文档中浅色字体
-    block-bg-color: block-bg-color, //代码块等的背景颜色
+  // 颜色
+  link-color: link-color, //链接颜色
+  muted-color: muted-color, //弱文字颜色，即本文档中浅色字体
+  block-bg-color: block-bg-color, //代码块等的背景颜色
 
-    // 段落格式
-    ind: 1.5em, //首行缩进，英文默认为 1.5em，中文为 2em
-    justify: true, //是否两端对齐，默认为是
+  // 段落格式
+  ind: 1.5em, //首行缩进，英文默认为 1.5em，中文固定为 2em，无法在用户层面更改
+  justify: true, //是否两端对齐，默认为是
 
-    // 引用和参考文献格式，英文默认为 springer-mathphys，中文默认为 gb-7714-2015-numeric
-    bib-style: "springer-mathphys",
+  // 引用和参考文献格式，英文默认为 springer-mathphys，中文默认为 gb-7714-2015-numeric
+  bib-style: (
+    en: "springer-mathphys",
+    zh: "gb-7714-2015-numeric"
+  )
+)
 ```
 
 
@@ -120,7 +125,7 @@
 用户可在`#let hetvid()`块中全局调整字体。
 我们设定了几类字体，包括
 / 正文字体 (body-font): 主要用于正文。
-/ 原始字体 (raw-font): 用于`raw text`，包括代码等。
+/ 纯文本字体 (raw-font): 用于`raw text`，包括代码等。
 / 标题字体 (heading-font): 用于标题。我选择使用无衬线字体，使得标题看起来更具现代感。用户可将其修改为typst预设的加粗衬线字体。具体见@headings。
 / 数学字体 (math-font): 用于数学公式。
 / 强调字体 (emph-font): 以拉丁字母书写的文本中，般使用意大利体（_italic_，斜体）来表示强调。在汉字书写的文本中，一般不使用斜体字形，而使用更接近手写体的_楷体_来表示强调。
