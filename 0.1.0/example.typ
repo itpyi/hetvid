@@ -131,10 +131,10 @@ Then this is true.
 
 Equations are numbered by default,
 $ cal(F)f(k) = 1/(2 pi "i") integral dif k thin "e"^("i"k x) f(x), $<eq:fourier>
-and you can refer to it by its number @eq:fourier.
+and you can refer to it by its number #eqref(<eq:fourier>), or #eqref(<eq:fourier>, <eq:another>).
 
 By default, line after an equation is not indented,
-$ 1 + 1 = 2. $
+$ 1 + 1 = 2. $<eq:another>
 This is an example. But if you want to end a paragraph by an equation,
 you can add a par-break manually by `#parvirtual`.
 $ 1+1 = 2. $
@@ -152,7 +152,7 @@ This is a paragraph after a theorem. Note the vertical space.
 For theorems with a name, we set it to look like the default behaviour of the `amsthm` package.
 The "theorem" is strong, the "name" is put in a parenthesis while the point is put after the name.
 
-#theorem(name: "name")[This is a theorem with name.]
+#theorem("some theorem")[This is a theorem with name.]
 
 #theorem[This is a theorem.
 The space is set to weak so that no extra space is added between two theorems.]

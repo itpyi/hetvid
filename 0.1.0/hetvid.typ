@@ -4,19 +4,34 @@
 #import "dingli.typ": *
 #import "@preview/zebraw:0.5.3": *
 
+// Function not supposed to be used by users
+#let link-color = rgb("#3282B8")
+#let muted-color = luma(160)
+#let block-bg-color = luma(240)
+
+// Functions for users 
+
+// a virtual paragraph that shows nothing in the file, 
+// but let the next paragraph regard its preceding block-level element as a paragraph,
+// so that proper indention can be applied.
 #let parvirtual = {
 "" 
 context v(-par.spacing -  measure("").height)
 }
 
-#let link-color = rgb("#3282B8")
-#let muted-color = luma(160)
-#let block-bg-color = luma(240)
-
 #let text-muted(it) = {text(fill: muted-color, it)}
 
+// referring to equations in English version.
+#let eqref(..labels) = {
+    let label-list = labels.pos().map(ref)
+    let pre = "Eq."
+    if label-list.len() > 1{
+        pre = "Eqs."
+    }
+    [#pre#h(math.thin.amount)\(#label-list.join(", ")\)]
+}
 
-// Report template
+// template
 #let hetvid(
     // Metadata
     title: [Title],
@@ -127,20 +142,20 @@ context v(-par.spacing -  measure("").height)
 
     // Set equation numbering and referring
     set math.equation(numbering: "(1)")
-    show ref: it => {
-      let eq = math.equation
-      let el = it.element
-      if el != none and el.func() == eq {
-        // Override equation references.
-        link(el.location(),numbering(
-          el.numbering,
-          ..counter(eq).at(el.location())
-        ))
-      } else {
-        // Other references as usual.
-        it
-      }
-    }
+    // show ref: it => {
+    //   let eq = math.equation
+    //   let el = it.element
+    //   if el != none and el.func() == eq {
+    //     // Override equation references.
+    //     link(el.location(),numbering(
+    //       el.numbering,
+    //       ..counter(eq).at(el.location())
+    //     ))
+    //   } else {
+    //     // Other references as usual.
+    //     it
+    //   }
+    // }
     
 
     // Display block code with padding and shaded background
@@ -185,7 +200,24 @@ context v(-par.spacing -  measure("").height)
     }
 
     // Set reference font
-    show ref: set text(font: body-font)
+    show ref: it => {
+        set text(font: body-font)
+        let el = it.element
+        if el == none {
+            it
+        } else if el.func() == heading and lang == "zh" {
+            link(
+                el.location()
+            )[第#numbering("1.1", ..counter(heading).at(el.location()))节]
+        } else if el.func() == math.equation {
+            link(el.location())[#numbering(
+            "1",
+            ..counter(math.equation).at(el.location())
+            )]
+        } else {
+            it
+        }
+    }
 
     show figure.caption: it => {
         set text(size: caption-size, font: body-font)

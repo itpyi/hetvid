@@ -15,6 +15,7 @@
   date-modified: "2025-04-28",
   abstract: [Hetvid是一个Typst模板，用于创作轻量级的笔记。本文是该模板的实例和说明文档，在介绍特性的同时，也会谈及作者的设计理念。],
   toc: true,
+  body-font: ("Libertinus Serif", "Songti SC"),
   lang: "zh",
 )
 
@@ -23,7 +24,7 @@
 
 在本文中，以#text-muted[浅色字体]表示的内容是尚未实现的功能或特性。
 
-= 调用本模板
+= 调用本模板<sec-diaoyong>
 
 调用模板的方法有如下三种：
 - 将模板文件复制到工作目录下，在文档中通过
@@ -125,10 +126,11 @@
 
 = 字体
 
-用户可在`#let hetvid()`块中全局调整字体。
-我们设定了几类字体，包括
-/ 正文字体 (body-font): 主要用于正文。
-/ 纯文本字体 (raw-font): 用于`raw text`，包括代码等。
+== 基础设定
+
+我们设定了几类字体，其预设值见#ref(<sec-diaoyong>)中的代码。
+/ 正文字体 (body-font): 主要用于正文。其大小和字重由`body-font-size`和`body-font-weight`给出。预设的西文字体是New Computer Modern，我们预设了常规字重。对于默认使用的西文字体 New Computer Modern, 也可“book”字重,
+/ 纯文本字体 (raw-font): 用于纯文本内容，例如代码等。
 / 标题字体 (heading-font): 用于标题。我选择使用无衬线字体，使得标题看起来更具现代感。用户可将其修改为typst预设的加粗衬线字体。具体见@headings。
 / 数学字体 (math-font): 用于数学公式。
 / 强调字体 (emph-font): 以拉丁字母书写的文本中，般使用意大利体（_italic_，斜体）来表示强调。在汉字书写的文本中，一般不使用斜体字形，而使用更接近手写体的_楷体_来表示强调。
@@ -136,6 +138,12 @@
 对于每种字体，我们提供了若干预设值。对于每个字符，编译器将选择第一个能用的字体。我们希望使用专业的西文字体而非宋体来显示拉丁字母，因此，建议将只覆盖拉丁字母的字体放在前面，将中文字体放在后面。
 
 在选择数学字体时，我们使其前三个候选值与正文字体配套。这是因为公式中仍可能出现文字，若公式中文字与正文中文字字体不一致，则显得不统一。这种不统一在拉丁字母文档中更突出，例见英文文档。
+
+== 关于数学字体
+
+== New Computer Modern 的字重问题
+
+== 中西文之间的空格问题
 
 
 = 标题
@@ -152,7 +160,7 @@ set text(font: headings-font, weight: "regular")
 
 == 二级标题
 
-=== 三级标题
+=== 三级标题<sec-3>
 
 三级标题的字号大小和正文相同。一般来说，100页以下的笔记很少使用三级标题。例如，Kitaev的文章#cite(<kitaevQuantumComputationsAlgorithms1997>)#cite( <kitaevAnyonsExactlySolved2006>)#cite(<kitaevAlmostidempotentQuantumChannels2025>)和Witten的讲义#cite(<wittenNotesEntanglementProperties2018>)#cite(<wittenMiniIntroductionInformationTheory2020>)#cite(<wittenIntroductionBlackHole2025>)都不使用三级标题。
 
@@ -174,7 +182,7 @@ set text(font: headings-font, weight: "regular")
 
 公式默认编号，如
 $ cal(F)f (k) = 1/(2 pi "i") integral dif k thin "e"^("i"k x) f(x), $<eq:fourier>
-可引用其编号，如公式 @eq:fourier。
+可引用其编号，如公式 (@eq:fourier)。
 一般来说，公式后不分段。如果需要以公式结束一段，则可以手动添加一个段落分隔符`#parvirtual`。例如：
 $ 1 + 1 = 2. $
 #parvirtual
@@ -188,7 +196,7 @@ $ 1 + 1 = 2. $
 
 这是定理后的一段，注意竖直间距。
 
-#dingli(name: [$s$-定理])[这是一个有名字的定理。]
+#dingli([$s$-定理])[这是一个有名字的定理。]
 
 #dingli[这是一个定理。
 定理前后的竖直间距设定为weak，故没有额外间距。]
