@@ -1,4 +1,4 @@
-#import "hetvid.typ": *
+#import "/0.1.0/hetvid.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
 

@@ -50,15 +50,15 @@ context v(-par.spacing -  measure("").height)
     lang: "en",
 
     // Fonts
-    body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "SimSun", "serif"),
-    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "华文细黑", "Microsoft YaHei", "微软雅黑"),
-    heading-font: ("Helvetica", "Tahoma", "Arial", "STXihei", "华文细黑", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+    body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "Source Han Serif SC", "STSong", "Simsun", "serif"),
+    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+    heading-font: ("Helvetica", "Tahoma", "Arial", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
     math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
     emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
     body-font-size: 11pt,
     body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
     raw-font-size: 9pt,
-    caption-size: 10pt,
+    caption-font-size: 10pt,
     heading-font-weight: "regular",
 
     // Colors
@@ -85,7 +85,7 @@ context v(-par.spacing -  measure("").height)
     if lang == "zh" {
         ind = 2em
     }
-    set text(lang: "zh") if lang == "zh"
+    set text(lang: lang)
     // Configure page size
     set page(
         paper: paper-size,
@@ -101,27 +101,29 @@ context v(-par.spacing -  measure("").height)
     show emph: set text(font: emph-font, size: body-font-size) if lang == "zh" // Kaiti instead of italic for emphasis
     show math.equation: set text(font: math-font, weight: body-font-weight)
 
+
     show heading: it => {
         // Add vertical space before headings
         if it.level == 1 {
-            v(6%, weak: true)
+            v(2em, weak: true)
         } else {
-            v(4%, weak: true)
+            v(1.5em, weak: true)
         }
 
         // Set headings font
         set text(font: heading-font, weight: heading-font-weight)
+        set text(size: 1.1em) if it.level == 3
         // show math.equation: set text(weight: 600)
         it
         if lang == "zh" {
             parvirtual
         }
         // Add vertical space after headings
-        v(3%, weak: true)
+        v(1.2em, weak: true)
     }
     
     // set heading numbering
-    set heading(numbering: "1.")
+    set heading(numbering: "1.")    
 
 
     // Set paragraph properties
@@ -130,12 +132,12 @@ context v(-par.spacing -  measure("").height)
     // Set list styling
     set enum(indent: ind, numbering: "1.", full: true)
     set list(indent: ind)
-    let hang-ind = if lang == "zh" {
-        3em
-    } else {
-        3em
-    }
+    let hang-ind = -ind
     set terms(indent: ind, hanging-indent: hang-ind)
+    show terms: it => {
+        it
+        parvirtual
+    }
 
     // Set equation spacing 
     show math.equation.where(block: true): set block(above: 1.2em, below: 1.2em)
@@ -220,7 +222,7 @@ context v(-par.spacing -  measure("").height)
     }
 
     show figure.caption: it => {
-        set text(size: caption-size, font: body-font)
+        set text(size: caption-font-size, font: body-font)
         layout(size => [
             #let text-size = measure(
                 it
@@ -247,8 +249,8 @@ context v(-par.spacing -  measure("").height)
     }
 
     // when directly plot in file, set text in figure as the caption size
-    show figure.where(kind: image): set text(size: caption-size)
-    show figure.where(kind: "inline"): set text(size: caption-size)
+    show figure.where(kind: image): set text(size: caption-font-size)
+    show figure.where(kind: "inline"): set text(size: caption-font-size)
 
 
     // Set link styling
@@ -258,13 +260,17 @@ context v(-par.spacing -  measure("").height)
     }
     
     // Set theorem environments
-    show: dingli-rules.with(level: thm-num-lv)
+    show: dingli-rules.with(
+        level: thm-num-lv,
+        upper: 1.5em,
+        lower: 1.5em
+    )
 
     // Set page header and footer (numbering)
     set page(
         header: context {
             if counter(page).get().first() > 1 [
-                #set text(font: heading-font, weight: "regular", fill: muted-color, size: caption-size)
+                #set text(font: heading-font, weight: "regular", fill: muted-color, size: caption-font-size)
                 #header
                 #h(1fr)
                 #title
