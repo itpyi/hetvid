@@ -2,6 +2,7 @@
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
 #import "@preview/treet:0.1.1": *
+#import "@preview/fancy-units:0.1.1": num, unit, qty
 
 
 #let version = "0.1.0"
@@ -93,9 +94,9 @@
   paper-size: "a4",
 
   // 字体族，下为默认值
-  body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "SimSun", "serif"),
-  raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "华文细黑", "Microsoft YaHei", "微软雅黑"),
-  heading-font: ("Helvetica", "Tahoma", "Arial", "STXihei", "华文细黑", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+  body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "Source Han Serif SC", "STSong", "Simsun", "serif"),
+  raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "PingFang SC", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+  heading-font: ("Helvetica", "Tahoma", "Arial", "PingFang SC", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
   math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
   emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
   body-font-size: 11pt,
@@ -213,41 +214,83 @@ New Computer Modern 字体的两种字重在 Typst 中的默认行为稍显怪�
 
 = 标题
 
-一级标题字号为 1.4 em。
+一级标题字号为 #qty[1.4][em]。一级标题上方有 #qty[2][em]（相对标题字体大小，下同）的竖直空间，下方有 #qty[1.2][em] 的竖直空间。
 
 == 二级标题
 
-二级标题字号为 1.2 em。
+二级标题字号为 1.2 em。二级标题上方有 #qty[1.5][em] 的竖直空间，下方有 #qty[1.2][em] 的竖直空间。
 
 === 三级标题
 
-三级标题的字号大小为 1.1 em。一般来说，100页以下的笔记很少使用三级标题。例如，Kitaev的文章#cite(<kitaevQuantumComputationsAlgorithms1997>)#cite( <kitaevAnyonsExactlySolved2006>)#cite(<kitaevAlmostidempotentQuantumChannels2025>)和Witten的讲义#cite(<wittenNotesEntanglementProperties2018>)#cite(<wittenMiniIntroductionInformationTheory2020>)#cite(<wittenIntroductionBlackHole2025>)都不使用三级标题。
+三级标题的字号大小为 1.1 em。三级标题上方有 #qty[1.5][em] 的竖直空间，下方有 #qty[1.2][em] 的竖直空间。
 
-尽管 Typst 提供了更高级标题的功能，但模板作者强烈不推荐使用层级过多的标题，因此也未对其行为作特别订制。
+尽管 Typst 提供了更高级标题的功能，但模板作者强烈不推荐使用层级过多的标题，因此也未对其行为作特别订制。一般来说，100页以下的笔记甚至很少使用到三级标题。例如，Kitaev的文章#cite(<kitaevQuantumComputationsAlgorithms1997>)#cite( <kitaevAnyonsExactlySolved2006>)#cite(<kitaevAlmostidempotentQuantumChannels2025>)和Witten的讲义#cite(<wittenNotesEntanglementProperties2018>)#cite(<wittenMiniIntroductionInformationTheory2020>)#cite(<wittenIntroductionBlackHole2025>)都不使用三级标题。
 
-= 引文
+= 段落和缩进<sec:par>
 
-成段引文如下：
+用家可通过`justify: true | false`来调整是否两端对齐，预设为两端对齐。
+
+关于首行缩进，本模板设置`lang="zh"`后，强制首行缩进2字符，用家无法修改。与之相反，设置`lang="en"`时用户可通过`ind`来设置缩进量。模板作此设计的原因是现代中文排版的首行缩进习惯相对确定。
+
+Typst 的首行缩进，可以通过`all`选项来决定是否缩进所有段落，但其行为实际上比较复杂，要之：
+- 预设行为是`all: false`，此时对于一“段”，如果其前一个块级元素也是“段”，则缩进此段，反之不缩进。不是“段”的块级元素包括：
+  - 空元素：于是块级元素（如块级引用、定理）的首段不缩进，合乎英文排版习惯，对于中文文档需要特殊处理。
+  - 节标题：于是每节第一段不缩进，合乎英文排版习惯，对于中文文档需要特殊处理。
+  - 行间公式：于是行间公式后不缩进，符合一般习惯，但如果一段以行间公式结尾，则需要特殊处理。
+  - 块级引用：和行间公式类似，一般情况符合习惯，但如果某一段以引用结尾，则需特殊处理，详见@sec:quote。
+  - 无序和有序列表：和行间公式类似，一般所谓段内元素出现，其后续内容之不缩进缩进符合习惯，但如果一段以列表结尾则需特殊处理。
+  - 图：于是没有设置浮动的图后不缩进，仅当图作为段落内部元素出现时符合习惯，其他情况需要特殊处理，详见@sec:fig。
+  - 其他块级元素，例如本模板使用的定理环境等。
+  可以看出，这种设定一般来说符合习惯，但对于一些情况需要特殊处理。
+- 设置`all: true`，此时缩进所有段落。对于中文模板，这样设置也有一些需要特殊处理的问题，例如行间公式、块级引用后总是分段，因此需要将它们放进盒子（box）里。
+模板作者认为，行间公式作为 Typst 的原生语法，保持其简洁性非常重要，因此我们采取了第一种方案，即不设置全部缩进，而对需要缩进的段落特殊处理。
+
+实现此特殊处理的方式非常简单：在需要缩进而默认未能缩进的段落前加一虚拟的段落，使其对编译器呈现为一个类型为“段”的块级元素，但在编译结果中并不显示出来。为此，我们提供了`par-vir`函数以实现这种虚拟的段落。在模板中，我们已经对中文情况下需要调整的地方添加了虚拟段落，因此大部分情况下用户无需担心缩进行为的问题。仅当用户缩写的段落以公式、引用、列表等非段块级元素结尾而其后内容需另起一段时，用户须插入
+```typ
+#par-vir
+```
+来实现正确的缩进。见下例。
+
+#lizi[
+  这一段以公式结尾，
+  $ 1+1=2. $
+  #par-vir
+  我们希望另起一段。
+
+  不加虚拟段落则我们无法在公式后另起一段，即使加了空行。
+  $ 1+1=2. $
+
+  我们未能另起一段。当然，这个空行是不影响竖直间距的。
+]
+
+= 引文<sec:quote>
+
+模板订制了成段引文的行为：两侧缩进 4 个字符，内部首行缩进 2 字符，上下竖直距离为 #qty[1.5][em]，且后续内容默认绪接上段，首行不缩进。作为例子，我们引《封建论》的一节来展示效果。
 #quote(attribution: [柳宗元《封建論》], block: true)[
   秦有天下，裂都會而為之郡邑，廢侯衛而為之守宰，據天下之雄圖，都六合之上游，攝制四海，運於掌握之內，此其所以為得也。不數載而天下大壞，其有由矣。亟役萬人，暴其威刑，竭其貨賄。負鋤梃謫戍之徒，圜視而合從，大呼而成群。時則有叛人而無叛吏，人怨於下，而吏畏於上，天下相合，殺守劫令而並起。咎在人怨，非郡邑之制失也。
 
-漢有天下，矯秦之枉，徇周之制，剖海內而立宗子，封功臣。數年之間，奔命扶傷之不暇。困平城，病流矢，陵遲不救者三代。後乃謀臣獻畫，而離削自守矣。然而封建之始，郡國居半，時則有叛國而無叛郡。秦制之得，亦以明矣。繼漢而帝者，雖百代可知也。
+  漢有天下，矯秦之枉，徇周之制，剖海內而立宗子，封功臣。數年之間，奔命扶傷之不暇。困平城，病流矢，陵遲不救者三代。後乃謀臣獻畫，而離削自守矣。然而封建之始，郡國居半，時則有叛國而無叛郡。秦制之得，亦以明矣。繼漢而帝者，雖百代可知也。
 ]
-其后内容接续上段。
+在一般的行文中，引文是作为段落内的元素出现的，因此模板默认引文之后不分段。如需分段，即使接续内容首行缩进，用户可插入一虚拟段落。
 
 = 公式
 
-公式默认编号，如
+行间公式默认编号，如
 $ cal(F)f (k) = 1/(2 upright(pi) "i") integral dif k thin "e"^("i"k x) f(x), $<eq:fourier>
-可引用其编号，如公式 (@eq:fourier)。
-一般来说，公式后不分段。如果需要以公式结束一段，则可以手动添加一个段落分隔符`#parvirtual`。例如：
-$ 1 + 1 = 2. $
-#parvirtual
-我们可以在此处继续行文。
+可引用其编号，如公式 (@eq:fourier)。在引用公式时，我们订制了引用命令`@{KEY}`只显示数字，前缀和括号需由用家自行处理。原因是用家可能在同一个文档中使用不同的前缀，例如公式 (1)、方程 (1)、求和 (1) 等，也可能同时引用多个公式，例如公式 (1-3) 等。与其用复杂的语法自动化各种可能的需求，不如留给用家自己处理。
+
+行间公式上下加有 #qty[1.2][em] 的竖直空间，这与 #LaTeX 的默认行为是一致的，否则过于拥挤，如下例。
+
+#lizi[
+  #show math.equation.where(block: true): set block(above: 0.5em, below: 0.5em)
+  如果公式前后的文字都写满了一行，而公式和上下文字之间又没有空隙，如
+  $ 1+1=2, $
+  则视觉效果十分拥挤，我们不希望呈现这样的效果，因此给公式上下添加了空隙。
+]
 
 = 定理
 
-由于现有定理包在细节上都不令人满意，我们自己定义了定理环境，其风格模仿 #LaTeX 的 `amsthm`包的默认风格。
+由于现有定理包在细节上都不令人满意，我们自己定义了定理环境。
 
 #dingli[这是一个定理。中文环境中，定理仍然首行缩进2个字符，并且不整体缩进，亦不顶格。]
 
@@ -279,7 +322,7 @@ $ 1 + 1 = 2 $
 #tuilun[这是一个推论。]
 #dingyi[这是一个定义。]
 
-= 图片和图注
+= 图片和图注<sec:fig>
 
 本模板设定了两种图片。一种是段内图片，它由其上下文描述而不引入独立的图注和索引。因此，图后文字并不另成一段。例如，考虑如下双边图。
 #figure(
@@ -423,81 +466,7 @@ set bibliography(style: "gb-7714-2015-numeric")
 注意国标格式引用时编号在上脚标的方括号内，其后不应空格。此时应通过`#cite(<$KEY>)`而非`@$KEY`引用文献.
 / 正确示例: 引用文献#cite(<wittenIntroductionBlackHole2025>)后不该有空格.
 / 错误示例: 引用文献@wittenIntroductionBlackHole2025 后有空格. (使用`@$KEY`引用时, 若其后无空格则编译器无法正确识别`$KEY`.)
-引用小节、图表亦有此问题。见@spacing。
-
-= 问题及解决方案
-
-== 缩进问题
-
-设置首行缩进时，typst默认的缩进方案是首段不缩进，这是合乎西文习惯的。但在中文文档中，首段首行也应缩进。为解决这个问题，typst给出的解决方案是提供全局缩进的选项。
-```typ
-#set par(first-line-indent: (amount: 2em, all: true))
-```
-但此方案会导致其他问题，例如行间公式后会出现缩进。见下例：
-
-#block(
-  fill: block-bg-color,
-  inset: 8pt,
-  width: 100%,
-  align(left,
-  [
-  #set par(first-line-indent: (amount: 2em, all: true))
-  考虑一元二次方程 $ a x^2 + b x + c = 0. $ 其实数根的存在性由判别式 $Delta$ 给出。
-  ])
-)
-
-这一缩进是不合理的，正确效果如下：
-
-#block(
-  fill: block-bg-color,
-  inset: 8pt,
-  width: 100%,
-  par(first-line-indent: (amount: 2em, all: true) ,[考虑一元二次方程])+
-  [
-    $ a x^2 + b x + c = 0. $ 
-    其实数根的存在性由判别式 $Delta$ 给出。
-
-    下一段正常缩进。
-  ]
-)
-因此，我们仍不能使用全局缩进，而应使用默认的首行缩进，并处理特殊段落。
-
-具体情境和处理方式见下表：
-
-#show table.cell.where(y: 0): strong
-#set table(
-  stroke: (x, y) => if y == 0 {
-    (bottom: 0.75pt + black)
-  },
-  // align: (x, y) => (
-  //   if x > 0 { center }
-  //   else { left }
-  // )
-  align: horizon
-)
-
-#table(
-  columns: 4,
-  table.hline(stroke: 1.5pt),
-  table.header(
-    [位置],
-    [全局缩进行为],
-    [预设缩进行为],
-    [调整方案]
-  ),
-  [目录后第一段],[缩进],[不缩进],[加一虚段],
-  [节标题后第一段],[缩进],[不缩进],[加一虚段并减去竖直距离#footnote([如此处理会影响目录中 "目录" 二字到下方内容的距离, 因此应跳过标题内容为 "目录" 者.])],
-  [公式后],[缩进],[不缩进],[_符合预期_#footnote([这也导致了公式后无法另起一段。不过一般而言，行文中最好避免以行间公式结束一段。段中图片也有相同的问题。])],
-  [段中图片后],[缩进],[不缩进],[_符合预期_],
-  [独立图片后],[缩进],[不缩进],[加一虚段，同时实现了独立图片和正文的竖直距离],
-
-  table.hline(stroke: 1.5pt),
-)
-
-表和图逻辑一致，嵌在行文中的表后不另起一段，遂不缩进。
-
-== 中西文之间空格问题 <spacing>
-
+引用小节、图表亦有此问题。
 
 = 设计理念和文化
 

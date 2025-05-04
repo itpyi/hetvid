@@ -4,7 +4,7 @@
 #let c_def = counter("definition")
 #let c_rmk = counter("remark")
 #let c_xmp = counter("example")
-#let c_list = (c_thm, c_lem, c_cor, c_def)
+#let c_list = (c_thm, c_lem, c_cor, c_def, c_rmk, c_xmp)
 #let kind_list = ("theorem", "lemma", "corollary", "definition", "remark", "example")
 
 #let parvirtual = {

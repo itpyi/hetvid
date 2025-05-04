@@ -14,7 +14,7 @@
 // a virtual paragraph that shows nothing in the file, 
 // but let the next paragraph regard its preceding block-level element as a paragraph,
 // so that proper indention can be applied.
-#let parvirtual = {
+#let par-vir = {
 "" 
 context v(-par.spacing -  measure("").height)
 }
@@ -51,8 +51,8 @@ context v(-par.spacing -  measure("").height)
 
     // Fonts
     body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "Source Han Serif SC", "STSong", "Simsun", "serif"),
-    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
-    heading-font: ("Helvetica", "Tahoma", "Arial", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "PingFang SC", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+    heading-font: ("Helvetica", "Tahoma", "Arial", "PingFang SC", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
     math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
     emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
     body-font-size: 11pt,
@@ -116,7 +116,7 @@ context v(-par.spacing -  measure("").height)
         // show math.equation: set text(weight: 600)
         it
         if lang == "zh" {
-            parvirtual
+            par-vir
         }
         // Add vertical space after headings
         v(1.2em, weak: true)
@@ -136,7 +136,7 @@ context v(-par.spacing -  measure("").height)
     set terms(indent: ind, hanging-indent: hang-ind)
     show terms: it => {
         it
-        parvirtual
+        par-vir
     }
 
     // Set equation spacing 
@@ -144,20 +144,6 @@ context v(-par.spacing -  measure("").height)
 
     // Set equation numbering and referring
     set math.equation(numbering: "(1)")
-    // show ref: it => {
-    //   let eq = math.equation
-    //   let el = it.element
-    //   if el != none and el.func() == eq {
-    //     // Override equation references.
-    //     link(el.location(),numbering(
-    //       el.numbering,
-    //       ..counter(eq).at(el.location())
-    //     ))
-    //   } else {
-    //     // Other references as usual.
-    //     it
-    //   }
-    // }
     
 
     // Display block code with padding and shaded background
@@ -180,25 +166,25 @@ context v(-par.spacing -  measure("").height)
     }
 
     // Set block quote styling
-    show quote: set block(above: 1.5em, below: 1.5em)
     show quote.where(block: true): it => {
         let attribution = if it.attribution != none {
             align(end, [#it.attribution])
         }
-    block(
-        width: 100%,
-        inset: (x: 2*ind), 
-        if it.quotes == true [
-        #quote(it.body) 
-        #attribution
-        ] else [ 
-        #if lang == "zh" {
-            parvirtual
-        }
-        #it.body 
-        #attribution
-        ]
-    )
+        set block(above: 1.5em, below: 1.5em)
+        block(
+            width: 100%,
+            inset: (x: 2*ind), 
+            if it.quotes == true [
+            #quote(it.body) 
+            #attribution
+            ] else [ 
+            #if lang == "zh" {
+                par-vir
+            }
+            #it.body 
+            #attribution
+            ]
+        )
     }
 
     // Set reference font
@@ -326,7 +312,7 @@ context v(-par.spacing -  measure("").height)
                 #heading(numbering: none, bookmarked: false, outlined: false)[#abskey]
                 #set par(first-line-indent: ind)
                 #if lang == "zh" {
-                    parvirtual
+                    par-vir
                 }
                 #abstract
             ]
@@ -338,7 +324,7 @@ context v(-par.spacing -  measure("").height)
     outline()
     v(2em)
     if lang == "zh" {
-            parvirtual
+            par-vir
         }
     }
 
