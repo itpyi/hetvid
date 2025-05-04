@@ -1,7 +1,6 @@
 #import "/0.1.0/hetvid.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
-#import "@preview/treet:0.1.1": *
 #import "@preview/fancy-units:0.1.1": num, unit, qty
 
 
@@ -201,7 +200,7 @@ New Computer Modern 字体的两种字重在 Typst 中的默认行为稍显怪�
 ]<li-font2>
 
 #lizi[
-  下面两行，第一行的源码没有添加空格，第二行的源码添加了空格。可以看到，在压缩量较大时，手动添加空格与否对排版效果影响巨大。（如下效果华文书宋、TeX Gyre Termes 字体配置下可以呈现，其他字体呈现相同效果可能需要略加增减。）
+  下面两行，第一行的源码没有添加空格，第二行的源码添加了空格。可以看到，在压缩量较大时，手动添加空格与否对排版效果影响巨大。（如下效果方正书宋、TeX Gyre Termes 字体配置下可以呈现，其他字体呈现相同效果可能需要对文字略加增减。）
   - 我花了有近30天时间，夜以继日、焚膏继晷、废寝忘食地写好了一个Typst模板，以飨用家。
   - 我花了有近 30 天时间，夜以继日、焚膏继晷、废寝忘食地写好了一个 Typst 模板，以飨用家。
 ]<li-compress>
