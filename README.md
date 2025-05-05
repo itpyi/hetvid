@@ -9,6 +9,8 @@ The Chinese translation is 因明.
 
 ## Quick Start
 
+See `doc.pdf` for how to import it.
+
 ```typ
 #show: hetvid.with(
   title: [Hetvid: A Typst template for lightweight notes],

@@ -13,28 +13,116 @@
   toc: true,
 )
 
-// #show math.equation: set text(font: "Libertinus Serif")
-// #set text(font: "Libertinus Math")
+In this doc, upcoming features are represented by #text-muted[light font]. 
 
 = Usage 
+#let version = "0.1.0"
 
-Copy `hetvid.typ` to your working directory, then 
+You can import this template in 3 ways.
+- Copy the files (including `hetvid.typ` and `dingli.typ`) to your working directory, and import it by  
+  ```typ
+  #import "hetvid.typ": *
+  ```
+- Copy this repository to your dirctory for local packages, then import it by 
+  #raw(
+    block: true,
+    lang: "typ",
+    "#import \"@local/hetvid:"+version+"\": *"
+  )
+- #text-muted[After we have published this to Typst Universe, you can import it by
+  #raw(
+    block: true,
+    lang: "typ",
+    "#import \"@local/hetvid:"+version+"\": *"
+  )
+]
+We recommend the second way.
+
+Specifically, the directory for local packages is `{data-dir}/typst/packages/local/`, where `{data-dir}` is
+- Linux: `$XDG_DATA_HOME` or `~/.local/share`;
+- MacOS: `~/Library/Application Support`;
+- Windows: `%APPDATA%`, where `%APPDATA` is a variable, usually being
+  ```
+  C:\Users\USERNAME\AppData\Roaming
+  ```
+  You can check this in cmd by command
+  ```shell
+  $ echo The value of ^%AppData^% is %AppData%
+    The value of %AppData% is C:\Users\USERNAME\AppData\Roaming
+  ```
+  See https://superuser.com/questions/632891/what-is-appdata.
+The user should copy this directory to this directory for local packages.
+For example for Windows, there should be such a directory in the end:
+#raw(
+    block: true,
+    "C:\Users\USERNAME\AppData\Roaming\typst\packages\local\hetvid\\"+version+"\\"
+  )
+Then the user can `#import` this template.
+
+After importing, the user can set basic information by the following code.
+Note that default values have been given to variables affecting the format.
+If you do not need to change these default values, you do not need to write them when you use this template.
 ```typ
-#import "hetvid.typ": hetvid
 #show: hetvid.with(
-  title: [A template for light notes],
-  author: "Feifei",
-  header: "Instruction", // indicating the class of the file
-  date_created: "2025-03-27",
-  date_modified: "2025-03-30",
-  abstract: [This is the abstract],
-  toc: true, // whether to display table of contents, default to be true
+  // Information for the title
+  // Metadata
+  title: [Title],
+  author: "The author",
+  affiliation: "The affiliation",
+  header: "",
+  date-created: datetime.today().display(),
+  date-modified: datetime.today().display(),
+  abstract: [],
+  toc: true,
+
+  // Language
+  lang: "en",
+
+  // Information for format, only write the term you need to change
+  // Paper size
+  paper-size: "a4",
+
+  // Fonts
+  body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "Source Han Serif SC", "STSong", "Simsun", "serif"),
+  raw-font: ("DejaVu Sans Mono", "Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "PingFang SC", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+  heading-font: ("Helvetica", "Tahoma", "Arial", "PingFang SC", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
+  math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
+  emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
+  body-font-size: 11pt,
+  body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
+  raw-font-size: 9pt,
+  caption-font-size: 10pt,
+  heading-font-weight: "regular",
+
+  // Colors
+  link-color: link-color,
+  muted-color: muted-color,
+  block-bg-color: block-bg-color,
+
+  // indention
+  ind: 1.5em,
+  justify: true,
+
+  // bibliography style, if lang == "zh", defult to be "gb-7714-2015-numeric"
+  bib-style: (
+    en: "springer-mathphys",
+    zh: "gb-7714-2015-numeric",
+  ),
+
+  // Numbering level of theorems
+  thm-num-lv: 1,
 )
 ```
 
-It might be good to publish this template later so that one can use it without copying the file.
-
 = Fonts
+
+#text(red)[Below is not the newest version, but can serve and working examples.]
+
+== Basic settings
+
+== On math fonts 
+
+== On weight of New Computer Modern font
 
 Fonts can be globally adjusted in the `#let hetvid()` block. 
 In this block, several types of fonts are specified, including
@@ -48,8 +136,6 @@ In this block, several types of fonts are specified, including
 For each type of font, I provide several options.
 The compiler will choose the first available font in the list.
 All these fonts I choose is free to download from the internet.
-
-== More on math fonts
 
 I would to comment more on the math font.
 I have set it to match the body font in the first 3 options. 

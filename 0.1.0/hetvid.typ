@@ -51,7 +51,7 @@ context v(-par.spacing -  measure("").height)
 
     // Fonts
     body-font: ("New Computer Modern", "Libertinus Serif", "TeX Gyre Termes", "Songti SC", "Source Han Serif SC", "STSong", "Simsun", "serif"),
-    raw-font: ("Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "PingFang SC", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
+    raw-font: ("DejaVu Sans Mono", "Cascadia Code", "Menlo", "Consolas", "New Computer Modern Mono", "PingFang SC", "STHeiti", "华文细黑", "Microsoft YaHei", "微软雅黑"),
     heading-font: ("Helvetica", "Tahoma", "Arial", "PingFang SC", "STHeiti", "Microsoft YaHei", "微软雅黑", "sans-serif"),
     math-font: ("New Computer Modern Math", "Libertinus Math", "TeX Gyre Termes Math"),
     emph-font: ("New Computer Modern","Libertinus Serif", "TeX Gyre Termes", "Kaiti SC", "KaiTi_GB2312"),
@@ -207,6 +207,7 @@ context v(-par.spacing -  measure("").height)
         }
     }
 
+    // set figures
     show figure.caption: it => {
         set text(size: caption-font-size, font: body-font)
         layout(size => [
@@ -220,12 +221,13 @@ context v(-par.spacing -  measure("").height)
             my-align = left
             }
 
-            #align(my-align, it)
+            #align(my-align)[#strong[#it.supplement #it.counter.display(it.numbering).]#h(0.5em)#it.body]
         ])
     }
 
     show figure: it => {
-        if it.caption != none and it.placement == none {
+        let on-position-fig = (image, table)
+        if it.kind in on-position-fig and it.placement == none {
             v(2em, weak: true)
             box(it)
             v(2em, weak: true)
@@ -236,7 +238,6 @@ context v(-par.spacing -  measure("").height)
 
     // when directly plot in file, set text in figure as the caption size
     show figure.where(kind: image): set text(size: caption-font-size)
-    show figure.where(kind: "inline"): set text(size: caption-font-size)
 
 
     // Set link styling
