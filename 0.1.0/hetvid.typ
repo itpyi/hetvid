@@ -283,10 +283,12 @@ context v(-par.spacing -  measure("").height)
     {
         set par(first-line-indent: 0em)
         v(26pt)
-        text(font: heading-font, weight: "bold", size: 20pt, title)
-        linebreak()
-        v(16pt)
-        [#author \ 
+        [
+        #set par(justify: false)
+        #text(font: heading-font, weight: "bold", size: 20pt, title)
+        #linebreak()
+        #v(16pt)
+        #author \ 
         #emph(affiliation)]
         v(1em)
         let dc = if lang == "zh" {
