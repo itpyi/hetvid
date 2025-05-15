@@ -316,7 +316,9 @@ $ 1 + 1 = 2 $
 
 #yinli[这是一个引理。]
 #tuilun[这是一个推论。]
-#dingyi[这是一个定义。]
+#dingyi[这是一个定义。]<def:example>
+
+可以按照 typst 一般语法引用定理。如@def:example。
 
 
 = 图表<sec:fig>
@@ -334,10 +336,10 @@ $ 1 + 1 = 2 $
 
 我们建议给所有独立的图表添加图注。对于此类图片，我们设定了三点不同于typst默认行为的特性：
 + 图注少于一行则居中，多于一行则居左。例见@fig:short-caption 和@fig:long-caption。其实现参考了 #link("https://sitandr.github.io/typst-examples-book/book/snippets/layout/multiline_detect.html")[Typst Examples Book: Multipline detection]。
-+ 图注字号略小于正文，由`caption-font-size`给出。
 + 图注的标题（即图 1、表 1 一类文字）加粗显示。
++ 图注字号略小于正文，由`caption-font-size`给出。
 + 在图的上下插入 #qty[2][em] 的竖直空间，使其与正文稍有分隔。
-其中2、3条是为了避免混淆图注和正文。
+其中3、4条是为了避免混淆图注和正文。
 
 #figure(
   canvas({
@@ -395,7 +397,7 @@ $ 1 + 1 = 2 $
       }
     }
     }),
-  caption: [若图注长于一行，则采取左对齐。这是一个双边图，上部有5个节点，下部有6个节点，每个上节点与偶数个下节点相连。]
+  caption: [若图注长于一行，则采取左对齐。这是一个双边图，上部有4个节点，下部有6个节点，每个上节点与偶数个下节点相连。]
 )<fig:long-caption>
 
 图后内容另成一段。首行仍缩进。由于字号差异和竖直分隔的存在，文字并不与长图注相混淆。

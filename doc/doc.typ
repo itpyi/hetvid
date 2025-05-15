@@ -219,8 +219,6 @@ As you see here, by default, the template does not create a new paragraph (that 
 
 = Equation 
 
-
-
 Displayed equations are numbered by default, such as  
 $ cal(F)f (k) = 1/(2 pi "i") integral dif k thin "e"^("i"k x) f(x), $<eq:fourier>  
 and can be referenced by their numbers, such as #eqref(<eq:fourier>). When referencing equations, we provide the custom command `@{KEY}` to display only the number, leaving the prefix and parentheses to the user. This is because users may use different prefixes in the same document, such as Equation (1), the integral (1), or the isomorphism (1), and may also reference multiple equations simultaneously, such as properties (1-3). On the other hand, we provide a command `#eqref` for referring equations with abbreviation "Eq." or "Eqs.", depending on the number of keys in the argument. For example, `#eqref(<eq:fourier>)` outputs #eqref(<eq:fourier>), while `#eqref(<eq:fourier>, <eq:trivial>)` outputs #eqref(<eq:fourier>, <eq:trivial>). We do this becase the space after the dot in "Eq." is supposed to be small and non-breaking, which is tedious for the user to type.
@@ -236,43 +234,58 @@ Displayed equations have vertical spacing of #qty[1.2][em] above and below, cons
 
 = Theorems
 
-Our template provides several theorem environments through a theorem package `dingli`. For convenience of the user, we have copied the package file into this template.
+Since existing theorem packages are unsatisfactory in detail, the author has developed the #link("https://github.com/itpyi/typst-dingli")[dingli package] to implement theorem environments. As the dingli package has not yet been published, for user convenience, we have copied the package into this template, i.e., the `dingli.typ` file. Functions are defined within to implement theorems, definitions, lemmas, corollaries, examples, proofs, etc. Examples in this document have used the provided `#example` function.
 
-#theorem[This is a theorem.]
+Our theorem package customizes the following details:
+- Indentation issues, including the indentation of the paragraph following the theorem and the indentation of the theorem itself in Chinese documents.
+- Vertical spacing with the surrounding context. This template sets it to #qty[1.5][em].
+- Numbering level issues. You can choose not to number by headings, number by first-level headings, or number by higher-level headings. This can be adjusted via `thm-num-lv: 0|1|...`. The template defaults to numbering by first-level headings.
 
-This is a paragraph after a theorem. Note the vertical space.
+#theorem[This is a theorem. In Chinese environments, the theorem still indents the first line by 2 characters, does not indent as a whole, and is not flush with the left margin.]
 
-For theorems with a name, we set it to look like the default behaviour of the `amsthm` package.
-The "theorem" is strong, the "name" is put in a parenthesis while the point is put after the name.
+This is a paragraph following the theorem, note the vertical spacing.
 
-#theorem("some theorem")[This is a theorem with name.]
+#theorem([$s$-Theorem])[This is a named theorem. Note the realization of the theorem name and separator.]
 
 #theorem[This is a theorem.
-The space is set to weak so that no extra space is added between two theorems.]
-#proof[This is the proof.
+The vertical spacing before and after the theorem is set to weak, so there is no extra spacing.]
+#proof[This is a proof.
 $ 1 + 1 = 2 $
-This is what to be prooved. 
+Does this really need proof?
 
-Another paragraph of the proof. #lorem(46)
+This is another paragraph in the proof.
 ]
 
-Now we have other types.
+Other types include lemmas, corollaries, definitions, etc.
 
-#lemma[This is a lemma.]<lemma:test>
-#corollary[This is a lemma.]
-#definition[This is a lemma.]
+#lemma[This is a lemma.]
+#corollary[This is a corollary.]
+#definition[This is a definition.]<def:example>
 
-Refer to theorems by @lemma:test.
+You can reference theorems using Typst's general syntax, such as @def:example.
 
-= Figure and caption<sec:fig>
+= Figures and tables<sec:fig>
 
-This template allows for two kinds of figures. 
-First, a figure inside a paragraph.
-Such a figure is described by contents round it in the main text and hence
-has no caption or label. 
-As a result, content following this figure should not be indented
-since it is not a new paragraph.
-For example, we can plot a bipartite graph as follows:
+== In-paragraph figures and tables
+
+Sometimes we insert figures or tables directly into the text: they are closely related to the context and do not have much standalone value. Therefore, we want them to be part of the paragraph rather than independent figures with captions. For such figures or tables, we recommend using
+```typ
+#align(center,image("{SOURCE}")) //figure
+#align(center)[#table({...}] //table
+```
+rather than `#figure` command to insert. 
+This is because `#figure` is mainly designed for floating figures, and its default behavior may not match the requirements for in-paragraph figures or tables.
+
+== Standalone figures and tables
+
+We suggest adding captions to all standalone figures and tables.
+For such figures, we provide a customized `#figure` function. Compared to Typst's default `figure`, it has the following features:
++ If the caption is short (fits in one line), it is centered; if it is long (spans multiple lines), it is left-aligned. See @fig:short-caption and @fig:long-caption. This is implemented by detecting the number of lines in the caption, following the approach in #link("https://sitandr.github.io/typst-examples-book/book/snippets/layout/multiline_detect.html")[Typst Examples Book: Multipline detection].
++ The caption label (e.g., "Figure 1", "Table 1") is bold.
++ The caption font size is slightly smaller than the body text, controlled by `caption-font-size`.
++ There is vertical space of #qty[2][em] above and below the figure to separate it from the main text.
+Features 3 and 4 are intended to avoid mixing of the caption and the body.
+
 #figure(
   canvas({
     let N = 6
@@ -284,6 +297,7 @@ For example, we can plot a bipartite graph as follows:
     import draw: *
     for i in range(N) {
       circle((i*space, 0), radius: r, fill: black)
+      content((i*space, -r),[#i],anchor: "north", padding: 2pt)
     }
     for i in range(n) {
       rect((i*space + offset - r, vspace - r),(i*space + offset + r, vspace + r), fill: black)
@@ -299,50 +313,8 @@ For example, we can plot a bipartite graph as follows:
       }
     }
     }),
-  kind: "inline",
-  supplement: none
-)
-and go on to say something about it.
-
-Another kind of figure is a standalone figure, which has a caption and label.
-For such figures, we change the typst default behaviour by following 3 features:
-- Figure caption is centered if it in within one line, 
- otherwise it is aligned to the left. 
- See @fig:figure_with_a_short_caption and @fig:figure_with_a_long_caption for examples.
- Refer to #link("https://sitandr.github.io/typst-examples-book/book/snippets/layout/multiline_detect.html")[Typst Examples Book: Multipline detection].
-- Figure caption has a smaller size than the main text, defined by `caption-size`.
-- We add vertical space equal to one line of text before and after such a figure.
-The second and the third features are set to avoid mixing the caption with the main text.
-
-
-#figure(
-  canvas({
-    let N = 6
-    let n = 4
-    let space = 1
-    let vspace = 2
-    let offset = (N - n) / 2
-    let r = 0.1
-    import draw: *
-    for i in range(N) {
-      circle((i*space, 0), radius: r, fill: black)
-    }
-    for i in range(n) {
-      rect((i*space + offset - r, vspace - r),(i*space + offset + r, vspace + r), fill: black)
-      i = i + 1
-    }
-    let links = ((1,2,4,5),
-                 (0,2,3,5),
-                 (0,4),
-                 (1,4))
-    for j in (0,1,2,3) {
-      for i in links.at(j) {
-        line((i*space, 0), (j*space + offset, vspace))
-      }
-    }
-    }),
-  caption: [A figure with a centered short caption.]
-)<fig:figure_with_a_short_caption>
+  caption: [Short caption is centered.]
+)<fig:short-caption>
 
 #figure(
   canvas({
@@ -370,14 +342,11 @@ The second and the third features are set to avoid mixing the caption with the m
       }
     }
     }),
-  caption: [A figure with a long caption. 
-  If the caption is long enough such that it occupies multiple lines,
-  then the caption is aligned to the left.]
-)<fig:figure_with_a_long_caption>
+  caption: [If the caption is longer than one line, it is left-aligned. This is a bipartite graph with 4 nodes on the top, 6 nodes on the bottom, and each top node is connected to an even number of bottom nodes.]
+)<fig:long-caption>
 
-You can see that contents following a standalone figure is indented,
-indicating that is is a new paragraph.
-The following paragraph is well separated from the figure caption.
+Contents after a figure becomes a new paragraph with first-line indentation.
+Due to the difference of the font size and a vertical separation, the text does not visually blend with a long figure caption.
 
 #figure(
   canvas({
@@ -406,18 +375,37 @@ The following paragraph is well separated from the figure caption.
     }
     }),
   placement: top,
-  caption: [A figure placed at the top of a page.]
-)<fig:figure_placement>
+  caption: [This figure is placed at the top of the page. Note that in Typst, the numbering of floating figures depends on their position in the source code, not their position in the generated document.]
+)<fig:placement>
 
-You can also force a figure to be placed at the top of a page. See @fig:figure_placement.
+One can also place a figure at a fixed position on a page rather than position relative to texts. See @fig:placement. Note that in Typst, the numbering of floating figures depends on their position in the source code, not their position in the generated document. This ensures that figure numbering follows the logical flow of the text, which is reasonable. However, if a document mixes figures placed in-flow and figures floated to the top or bottom of the page, the resulting figure numbers may appear out of order. Our suggestion is to always place figures at the top or bottom of the page for consistency.
+
+
+== Texts in figures and tables
+
+The font size of texts in tables is the same as `body-font-size`. For figures, since this template is primarily intended for academic notes and assumes users will use the #link("https://typst.app/universe/package/cetz/")[cetz] package for drawing, the recommended font size for text inside figures matches the caption font size. This template customizes the default text size in a figure and therefore in `canvas` from the cetz package to align with `caption-font-size`. See @fig:short-caption for an example.
+
 
 = Bibliography and citation
 
-Bibliography and citation style is set in 
-```typ
-// set citation
-set bibliography(style: "american-physics-society")
-```
-You can also choose other styles, see https://typst.app/docs/reference/model/bibliography/#parameters-style.
+The style of bibliography and citations can be set through the `bib-style` parameter, which is a dictionary mapping language codes to bibliography styles. For example, for English documents, the default is `"springer-mathphys"`, and for Chinese documents, it is `"gb-7714-2015-numeric"`. You can customize these styles as needed by modifying the `bib-style` dictionary when calling `hetvid.with`.
+
+Please refer to @BibliographyFunctionTypst for available bibliography styles.
+
+= Designing philosophy and goals
+
+The design philosophy of this template is to provide a lightweight, clear, and aesthetically pleasing environment for writing scientific notes. The main goals are:
+
+- Simplicity: Avoid unnecessary complexity in both appearance and usage. The template adheres to common typesetting conventions and minimizes decorative elements, relying on indentation and spacing to separate content.
+- Readability: Prioritize legibility by using appropriate font choices, sizes, and weights. The template ensures that headings, body text, captions, and mathematical content are visually distinct yet harmonious.
+- Consistency: Maintain consistent formatting for similar elements (e.g., headings, theorems, figures) throughout the document, reducing cognitive load for both writers and readers.
+- Customizability: Allow users to easily adjust key parameters (fonts, colors, spacing, numbering) to suit their needs, while providing sensible defaults for most use cases.
+- Academic focus: Support features commonly needed in scientific writing, such as theorem environments, equation numbering, citation management, and figure/table handling.
+
+By following these principles, the template aims to help users focus on content creation without being distracted by formatting issues.
+
+The name hetvid of this template derives from the Latin transcription of Sanskrit word _hetuvidyā_. 
+Hetuvidyā is the Sanskrit term for Buddhist logic and debate, introduced to China by the monk Xuanzang.
+
 
 #bibliography("ref.bib")
