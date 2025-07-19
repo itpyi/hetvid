@@ -5,8 +5,10 @@ entrypoint = "hetvid.typ"
 authors = ["itpyi"]
 license = "MIT-0"
 description = "A template for light notes"
+exclude = ["doc/doc.pdf", "doc/doc-cn.pdf"]
+categories = ["report"]
 
 [template]
 path = "template"
-entrypoint = "hetvid.typ"
-thumbnail = ""
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

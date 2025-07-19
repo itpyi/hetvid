@@ -90,7 +90,7 @@ context v(-par.spacing -  measure("").height)
   parvirtual
   }
   _#pre._#h(0.4em)
-  #body 
+  #body  
   #box(width: 2em)
   #h(1fr)
   $qed$

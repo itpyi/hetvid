@@ -318,6 +318,9 @@ context v(-par.spacing -  measure("").height)
                     par-vir
                 }
                 #abstract
+                // #if lang == "en" {
+                // block()
+                // }
             ]
         }
     }
@@ -325,10 +328,10 @@ context v(-par.spacing -  measure("").height)
 
     if toc{
     outline()
+    }
     v(2em)
     if lang == "zh" {
-            par-vir
-        }
+        par-vir
     }
 
     // Main body
