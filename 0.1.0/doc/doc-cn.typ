@@ -1,4 +1,4 @@
-#import "@local/hetvid:0.1.0": *
+#import "../hetvid.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
 #import "@preview/fancy-units:0.1.1": num, unit, qty
@@ -41,15 +41,13 @@
     "#import \"@local/hetvid:"+version+"\": *"
   )
   调用。
-#text-muted[
-  - 在本模板发布之后，使用者或可通过
-    #raw(
-      block: true,
-      lang: "typ",
-      "#import \"@preview/hetvid:"+version+"\": *"
-    )
-    调用。
-]
+- 在本模板发布之后，使用者可通过
+  #raw(
+    block: true,
+    lang: "typ",
+    "#import \"@preview/hetvid:"+version+"\": *"
+  )
+  调用。
 我们推荐使用第二种方法。
 
 具体来说，本地包目录为`{data-dir}/typst/packages/local/`，其中`{data-dir}`为
@@ -290,7 +288,11 @@ $ cal(F)f (k) = 1/(2 upright(pi) "i") integral dif k thin "e"^("i"k x) f(x), $<e
 
 = 定理
 
-由于现有定理包在细节上都不令人满意，作者开发了#link("https://github.com/itpyi/typst-dingli")[dingli 包]以实现定理环境。由于 dingli 包尚未发布，为了方便使用者，我们将包复制到了本模板下，即`dingli.typ`文件。其中我们定义了函数以实现定理、定义、引理、推论、例、证明等。本文的各示例已经使用了提供的`#lizi`函数。
+由于现有定理包在细节上都不令人满意，作者开发了#link("https://github.com/itpyi/typst-dingli")[dingli 包]以实现定理环境。由于 dingli 包尚未发布，为了方便使用者，我们将包复制到了本模板下，即`dingli.typ`文件。其中我们定义了函数以实现定理、定义、引理、推论、例、证明等。本文的各示例已经使用了提供的`#lizi`函数。如果使用者倾向使用其他定理包，为避免冲突，可在使用本模板时只导入必要的函数，即
+```typ
+#import "../hetvid.typ": hetvid
+```
+#par-vir
 
 我们的定理包对如下细节做了特别定制：
 - 缩进问题。包括定理后下一段的缩进和中文文档中定理本身的缩进。
