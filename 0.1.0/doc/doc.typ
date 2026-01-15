@@ -1,4 +1,4 @@
-#import "@local/hetvid:0.1.0": *
+#import "../hetvid.typ": *
 #import "@preview/metalogo:1.2.0": TeX, LaTeX // For displaying the LaTeX logo
 #import "@preview/cetz:0.3.4": canvas, draw
 #import "@preview/fancy-units:0.1.1": num, unit, qty
@@ -103,6 +103,7 @@ If you do not need to change these default values, you do not need to write them
   // indention
   ind: 1.5em,
   justify: true,
+  hyphenate: true, // if justify is false, this will make a difference
 
   // bibliography style, if lang == "zh", defult to be "gb-7714-2015-numeric"
   bib-style: (

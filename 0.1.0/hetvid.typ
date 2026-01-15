@@ -69,6 +69,7 @@ context v(-par.spacing -  measure("").height)
     // indention
     ind: 1.5em,
     justify: true,
+    hyphenate: true,
 
     // bibliography style, if lang == "zh", defult to be "gb-7714-2015-numeric"
     bib-style: (
@@ -85,7 +86,7 @@ context v(-par.spacing -  measure("").height)
     if lang == "zh" {
         ind = 2em
     }
-    set text(lang: lang)
+    set text(lang: lang, hyphenate: hyphenate)
     // Configure page size
     set page(
         paper: paper-size,
