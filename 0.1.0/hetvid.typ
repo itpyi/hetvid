@@ -36,7 +36,7 @@ context v(-par.spacing -  measure("").height)
     // Metadata
     title: [Title],
     author: "The author",
-    affiliation: "The affiliation",
+    affiliation: [The affiliation],
     header: "",
     date-created: datetime.today().display(),
     date-modified: datetime.today().display(),

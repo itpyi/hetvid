@@ -6,7 +6,7 @@
 #show: hetvid.with(
   title: [Hetvid: A Typst template for lightweight notes],
   author: "itpyi",
-  affiliation: "Xijing Ci'en Institute of Translation, Tang Empire",
+  affiliation: [Xijing Ci'en Institute of Translation, Tang Empire],
   header: "Instruction",
   date-created: "2025-03-27",
   date-modified: "2025-04-22",
@@ -235,7 +235,11 @@ Displayed equations have vertical spacing of #qty[1.2][em] above and below, cons
 
 = Theorems
 
-Since existing theorem packages are unsatisfactory in detail, the author has developed the #link("https://github.com/itpyi/typst-dingli")[dingli package] to implement theorem environments. As the dingli package has not yet been published, for user convenience, we have copied the package into this template, i.e., the `dingli.typ` file. Functions are defined within to implement theorems, definitions, lemmas, corollaries, examples, proofs, etc. Examples in this document have used the provided `#example` function.
+Since existing theorem packages are unsatisfactory in detail, the author has developed the #link("https://github.com/itpyi/typst-dingli")[dingli package] to implement theorem environments. As the dingli package has not yet been published, for user convenience, we have copied the package into this template, i.e., the `dingli.typ` file. Functions are defined within to implement theorems, definitions, lemmas, corollaries, examples, proofs, etc. Examples in this document have used the provided `#example` function. If you prefer using another theorem package, you can import only the functions you need from this template, like 
+```typ
+#import "@preview/hetvid:0.1.0": hetvid 
+```
+to avoid conflicts.
 
 Our theorem package customizes the following details:
 - Indentation issues, including the indentation of the paragraph following the theorem and the indentation of the theorem itself in Chinese documents.
