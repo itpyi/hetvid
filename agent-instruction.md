@@ -28,4 +28,4 @@ The name-to-affil relation will be displayed by the numbers following each name,
 
 ### Todo
 
-- [ ] Realize the multi-author-affil by a separate typ file, can call it from the template file `hetvid.typ`. Modify doc.typ to show an example. 
+- [x] Realize the multi-author-affil by a separate typ file, can call it from the template file `hetvid.typ`. Modify doc.typ to show an example. 
