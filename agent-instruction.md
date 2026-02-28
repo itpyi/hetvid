@@ -15,14 +15,17 @@ Instructions for agent
 This version has been published to Typst Universe.
 This is a template for academic notes.
 
-## Version 0.1.1
+## Version 0.2.0
 
 ### Description
 
 Add multi-author to this version, while compatible with the single-author syntax in 0.1.0.
-Now the title and authors are all left-aligned, a modern view.
-Refer to `doc.typ`, `doc-cn.typ` for more details on the design logic.
+The new author list is stored in the template parameter `author`, and `affiliation` is not used.
+The new `author` parameter is a list of dicts, with keys `name`, `affiliation` and `email`, the value of name is content, value of affiliation can be a list of contents, for multiple affiliations, value of email content.
+The author is separated by commas (and a space), and all the affiliations are numbered. 
+Two people can have same affiliations, then they share a same number. 
+The name-to-affil relation will be displayed by the numbers following each name, as superscript.
 
 ### Todo
 
-- [ ] Give me suggestions on how multiple authors will be aligned.
+- [ ] Realize the multi-author-affil by a separate typ file, can call it from the template file `hetvid.typ`. Modify doc.typ to show an example. 
