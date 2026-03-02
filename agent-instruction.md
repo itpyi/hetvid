@@ -10,7 +10,7 @@ Instructions for agent
 - AI agent should maintain a `agent-log-brief.md` for a much briefer version of the `agent-log.md`. Explicit instruction will be given for update it from `agent-log.md`. AI agent can also update it automatically when necessary.
 - One a new session is turned on, the agent should refer to the `agent-log-brief.md` to understand what has been done in this project, for particularly important details, it can further refer to the `agent-log.md`.
 - `CHANGELOG.md` is **user-facing**. Only document changes visible to template users (parameters, behaviors, compatibility). Internal file/function changes (e.g., which `.typ` files were created or which internal functions were added) go in `agent-log.md` and `agent-log-brief.md`, not in the changelog.
-- **Git commits**: commit once per logical task completion (a finished todo item, a self-contained fix) — not per file and not mid-task. The commit message should describe the change at the user/feature level (e.g. `add multi-author support`, `fix affiliation superscript ordering`), not at the implementation level (e.g. not `create authors.typ`).
+- **Git commits**: commit once per logical task completion (a finished todo item, a self-contained fix) — not per file and not mid-task. The commit message should describe the change at the user/feature level (e.g. `add multi-author support`, `fix affiliation superscript ordering`), not at the implementation level (e.g. not `create authors.typ`). When the human says "end this session" (or similar), check for any uncommitted changes and commit them before closing.
 
 ## Version 0.1.0
 
