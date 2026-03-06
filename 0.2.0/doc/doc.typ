@@ -139,7 +139,7 @@ Each dict has the following keys:
 
 / `name` (content): The author's name.
 / `affiliation` (content or array of contents): The author's affiliation(s). If an author belongs to multiple institutions, pass an array.
-/ `email` (content): The author's email address. (Currently stored but not displayed in the title block by default.)
+/ `email` (content): The author's email address. If non-empty, it appears as a footnote on the title page in the format `full name: email` (email in monospace).
 
 Authors are separated by commas. All affiliations across all authors are collected, deduplicated, and assigned sequential numbers.
 Each author's name is followed by superscript numbers indicating their affiliations.

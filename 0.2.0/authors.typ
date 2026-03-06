@@ -50,10 +50,17 @@
     // Render "Name^(1,2), Name^(2,3), ..."
     let rendered = authors.enumerate().map(((i, author)) => {
       let nums = author-nums.at(i)
-      if show-affil-nums and nums.len() > 0 {
+      let has-email = "email" in author and author.email != none and author.email != ""
+      let name-part = if show-affil-nums and nums.len() > 0 {
         [#author.name#super(nums.sorted().map(str).join(","))]
       } else {
         author.name
+      }
+      if has-email {
+        let email-str = if type(author.email) == str { author.email } else { repr(author.email) }
+        [#name-part#footnote[#author.name: #raw(email-str)]]
+      } else {
+        name-part
       }
     })
     rendered.join([, ])

@@ -1,5 +1,20 @@
 # Agent Log
 
+## 2026-03-06 — Session 2 (GitHub Copilot CLI)
+
+### Task
+Display author emails as footnotes on the title page (open todo in v0.2.0).
+
+### Actions
+
+1. **Modified `0.2.0/authors.typ`**: In `format-authors`, multi-author branch now checks each author's `email` field. If non-empty, appends a `footnote[full name: raw(email)]` call after the author's name (and any affiliation superscript). Missing or `none` emails are silently skipped. Old single-author mode unchanged.
+
+2. **Updated `0.2.0/doc/doc.typ`**: Updated `email` parameter description — removed "(Currently stored but not displayed in the title block by default.)" and replaced with accurate description of the footnote behavior.
+
+3. **Updated `agent-instruction.md`**: Marked the email todo as `[x]`. Added rule that log entries must be prepended (newest-first).
+
+4. **Updated `agent-log.md` and `agent-log-brief.md`**: Prepended this session entry (newest-first).
+
 ## 2026-02-28 — Session 1 (GitHub Copilot CLI)
 
 ### Task

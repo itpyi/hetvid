@@ -1,5 +1,11 @@
 # Agent Log (Brief)
 
+## 2026-03-06 — v0.2.0 author email footnotes
+
+- Modified `0.2.0/authors.typ`: authors with non-empty `email` now get a `footnote[name: raw(email)]` on the title page.
+- Updated `0.2.0/doc/doc.typ`: corrected `email` param description.
+- Updated `agent-instruction.md`: todo marked done; added newest-first log ordering rule.
+
 ## 2026-02-28 — v0.2.0 multi-author support
 
 - Created `0.2.0/` from `0.1.0/` as new version base.

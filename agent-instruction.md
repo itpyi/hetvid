@@ -11,6 +11,8 @@ Instructions for agent
 - One a new session is turned on, the agent should refer to the `agent-log-brief.md` to understand what has been done in this project, for particularly important details, it can further refer to the `agent-log.md`.
 - `CHANGELOG.md` is **user-facing**. Only document changes visible to template users (parameters, behaviors, compatibility). Internal file/function changes (e.g., which `.typ` files were created or which internal functions were added) go in `agent-log.md` and `agent-log-brief.md`, not in the changelog.
 - **Git commits**: commit once per logical task completion (a finished todo item, a self-contained fix) — not per file and not mid-task. The commit message should describe the change at the user/feature level (e.g. `add multi-author support`, `fix affiliation superscript ordering`), not at the implementation level (e.g. not `create authors.typ`). When the human says "end this session" (or similar), check for any uncommitted changes and commit them before closing.
+- **Log ordering**: new entries in `agent-log.md` and `agent-log-brief.md` must be **prepended** (newest entry at the top of the file), not appended.
+- Publish. See `publish-guide.md` for instructions for publishing.
 
 ## Version 0.1.0
 
@@ -31,3 +33,4 @@ The name-to-affil relation will be displayed by the numbers following each name,
 ### Todo
 
 - [x] Realize the multi-author-affil by a separate typ file, can call it from the template file `hetvid.typ`. Modify doc.typ to show an example. 
+- [x] Display an author's email if the corresponding field is non-empty. Put the emails to the footnote of the first (title) page, in the format [full name: email], with the email in mono-space font.
