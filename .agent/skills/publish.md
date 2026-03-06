@@ -96,10 +96,3 @@ git push origin main
 Open a PR from your fork's `main` branch to `typst/packages:main`.  
 PR title conventionally mirrors the commit message: `hetvid {version}`.
 
----
-
-## Useful tools
-
-- [`typst-package-check`](https://github.com/typst/package-check) — lint the package before submitting.
-- [`typship`](https://github.com/sjfhsjfh/typship) — install locally or submit to Typst Universe.
-- [`tytanic`](https://typst-community.github.io/tytanic/) — run regression tests.
