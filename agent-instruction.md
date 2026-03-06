@@ -14,13 +14,15 @@ Instructions for agent
 - **Log ordering**: new entries in `agent-log.md` and `agent-log-brief.md` must be **prepended** (newest entry at the top of the file), not appended.
 - Publish. See `publish-guide.md` for instructions for publishing.
 
-## Repository structure
+## Version-independent actions
+
+### Repository structure
 
 - `src/` — all publishable package files: `typst.toml`, `hetvid.typ`, `authors.typ`, `dingli.typ`, `template/`, `thumbnail.png`, `LICENSE`. This is the directory that gets copied to the Typst packages fork when publishing.
 - `doc/` — documentation source and PDFs. Never published to Typst Universe; linked from `README.md` via GitHub URL.
 - Root — meta/dev files: `README.md`, `CHANGELOG.md`, `agent-*.md`, `publish-guide.md`, `tips.md`.
 
-## Git tagging convention
+### Git tagging convention
 
 After each version is published to Typst Universe (PR merged), create a lightweight tag:
 
@@ -30,6 +32,10 @@ git push --tags
 ```
 
 This permanently marks the state of the repo at the time of each published release. Historic versions are accessible via `git checkout v{version}` — there is no need to keep old version directories in the repo.
+
+### Todo
+
+- [x] Create a script to auto generate thumbnail.png from the first page of the doc.
 
 ## Version 0.1.0
 
