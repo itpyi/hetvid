@@ -23,13 +23,13 @@ git checkout main
 
 In this dev repo (`hetvid/`):
 
-1. Update `src/typst.toml` version, `CHANGELOG.md`, and `README.md`.
-2. Commit: `git commit -m "release v{version}"` (or per task convention).
++ Check the dependency version
++ Update `src/typst.toml` version, `CHANGELOG.md`, and `README.md`.
++ Commit: `git commit -m "release v{version}"` (or per task convention).
 
 
 ## After each publish: finalize and tag in the dev repo
 
-+ Check the dependency version
 + Tag the commit: `git tag v{version}`
 + Push: `git push && git push --tags`
 
