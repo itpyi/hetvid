@@ -298,7 +298,8 @@ context v(-par.spacing -  measure("").height)
         #text(font: heading-font, weight: "bold", size: 20pt, title)
         #linebreak()
         #v(16pt)
-        #format-authors(author, old-affiliation: affiliation, emph-func: emph)]
+        #format-authors(author, old-affiliation: affiliation, emph-func: emph)
+        #counter(footnote).update(0)]
         v(1em)
         let dc = if lang == "zh" {
             text(font: emph-font)[创建日期：]

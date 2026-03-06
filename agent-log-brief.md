@@ -1,5 +1,10 @@
 # Agent Log (Brief)
 
+## 2026-03-06 — v0.2.0 remove email footnote superscripts
+
+- Modified `0.2.0/authors.typ`: `footnote(numbering: none)[...]` — no inline marker; content still appears at page bottom.
+- Modified `0.2.0/hetvid.typ`: `counter(footnote).update(0)` after `format-authors` — regular footnotes start from 1.
+
 ## 2026-03-06 — v0.2.0 author email footnotes
 
 - Modified `0.2.0/authors.typ`: authors with non-empty `email` now get a `footnote[name: raw(email)]` on the title page.

@@ -34,3 +34,4 @@ The name-to-affil relation will be displayed by the numbers following each name,
 
 - [x] Realize the multi-author-affil by a separate typ file, can call it from the template file `hetvid.typ`. Modify doc.typ to show an example. 
 - [x] Display an author's email if the corresponding field is non-empty. Put the emails to the footnote of the first (title) page, in the format [full name: email], with the email in mono-space font.
+  - [x] Remove the superscripts for the author footnotes so that normal footnotes on the first page can start from 1. If removing is not convenient, replace with other characters. (I prefer removing)

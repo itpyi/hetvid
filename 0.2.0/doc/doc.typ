@@ -26,7 +26,7 @@
   header: "Instruction",
   date-created: "2025-03-27",
   date-modified: "2025-04-22",
-  abstract: [This is a template designed for writing scientific notes. ],
+  abstract: [This is a template designed for writing scientific notes#footnote[Test a footnote on the first page.]. ],
   toc: true,
 )
 

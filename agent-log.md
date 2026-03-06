@@ -1,5 +1,20 @@
 # Agent Log
 
+## 2026-03-06 — Session 3 (GitHub Copilot CLI)
+
+### Task
+Remove inline superscript markers from email footnotes so regular first-page footnotes start from 1.
+
+### Actions
+
+1. **Modified `0.2.0/authors.typ`**: Changed `footnote[...]` to `footnote(numbering: none)[...]` for email entries. This suppresses both the inline superscript on the author name and the label in the footnote area, while the email content still appears at the bottom of the first page.
+
+2. **Modified `0.2.0/hetvid.typ`**: Added `#counter(footnote).update(0)` immediately after `#format-authors(...)` in the title block. This resets the footnote counter so any regular footnotes in the document body start from 1.
+
+3. **Updated `agent-instruction.md`**: Marked sub-todo as `[x]`.
+
+4. **Updated `agent-log.md` and `agent-log-brief.md`**: Prepended this entry.
+
 ## 2026-03-06 — Session 2 (GitHub Copilot CLI)
 
 ### Task
