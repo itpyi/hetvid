@@ -30,11 +30,17 @@ src/                  # Publishable package source (submitted to typst.app)
 doc/                  # User-facing documentation
   doc.typ / doc-cn.typ / ref.bib
 
+.agent/               # AI agent instructions (rules + skills)
+  rules/general.md    # Standing rules for every task
+  skills/publish.md   # Publishing procedure (read only when publishing)
+
 dev-doc/              # Internal / AI documentation (you are here)
   doc.md              # This file — master index
   hetvid.md           # → hetvid.typ internals
   authors.md          # → authors.typ internals
   dingli.md           # → dingli.typ internals
+
+dev-pitfalls/         # Past bug records (created on demand)
 
 scripts/              # Helper scripts (thumbnail generation, etc.)
 prompts/              # Reusable human prompt templates — DO NOT read autonomously
