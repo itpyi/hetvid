@@ -16,7 +16,7 @@ The Chinese translation is 因明.
 A minimal setup is as follows:
 
 ```typ
-#import "@preview/hetvid:0.1.0": *
+#import "@preview/hetvid:0.2.0": *
 #show: hetvid.with(
   title: [Hetvid: A Typst template for lightweight notes],
   author: "itpyi",
@@ -40,8 +40,8 @@ The `hetvid` function accepts the following arguments to customize your document
 | Parameter | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | `title` | content | `[Title]` | The title of the document. |
-| `author` | string | `"The author"` | The author's name. |
-| `affiliation` | content | `[The affiliation]` | The author's institutional affiliation. |
+| `author` | string or array of dicts | `"The author"` | Single author: a string. Multi-author: array of dicts with keys `name`, `affiliation` (content or array), and `email`. |
+| `affiliation` | content | `[The affiliation]` | Affiliation for single-author mode. Ignored in multi-author mode. |
 | `header` | string/content | `[]` | Custom text to appear in the page header. |
 | `date-created` | string | `datetime.today().display()` | Original creation date. |
 | `date-modified` | string | `datetime.today().display()` | Last modification date. |
@@ -79,6 +79,17 @@ The `hetvid` function accepts the following arguments to customize your document
 | `thm-num-lv` | integer | `1` | The heading level at which theorem numbering resets. |
 
 See [`doc.pdf`](https://github.com/itpyi/hetvid/blob/main/doc/doc.pdf) for a detailed explanation of how to use this template.
+
+## Changelog
+
+### 0.2.0
+
+- **Multi-author support**: `author` now accepts an array of dicts with keys `name`, `affiliation` (content or array of contents), and `email`. Affiliations are automatically deduplicated and numbered; shared affiliations receive the same superscript. Single-author syntax remains fully backward-compatible.
+- **`hyphenate` parameter**: boolean to control word hyphenation (default `true`).
+
+### 0.1.0
+
+First released version.
 
 ## Acknowledgements
 
