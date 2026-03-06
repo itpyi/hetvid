@@ -56,6 +56,15 @@ Always ask the user for permission before:
 
 ---
 
+## Available Skills
+
+| Skill file | When to invoke |
+|---|---|
+| `publish.md` | Cutting a release and submitting to the Typst package registry |
+| `sync-docs.md` | Auditing or updating `dev-doc/` — checks if docs exist and match code, uses git log to find undocumented changes |
+
+---
+
 ## Pitfall System ("Immune System")
 
 This project records past bugs to avoid repeating them.
