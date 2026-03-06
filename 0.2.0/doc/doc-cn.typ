@@ -13,7 +13,7 @@
     (
       name: "itpyi",
       affiliation: ([大唐西京慈恩翻译学院], [清华大学高等研究院]),
-      email: "alice@a.edu",
+      // email: "alice@a.edu",
     ),
     (
       name: "Yifei",
