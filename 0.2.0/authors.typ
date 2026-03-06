@@ -58,7 +58,7 @@
       }
       if has-email {
         let email-str = if type(author.email) == str { author.email } else { repr(author.email) }
-        [#name-part#footnote(numbering: none)[#author.name: #raw(email-str)]]
+        [#name-part#footnote(numbering: _ => [])[#author.name: #raw(email-str)]]
       } else {
         name-part
       }
