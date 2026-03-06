@@ -78,7 +78,7 @@ The `hetvid` function accepts the following arguments to customize your document
 | `bib-style` | dictionary | *(Mixed)* | Bibliography style mapping based on `lang`. |
 | `thm-num-lv` | integer | `1` | The heading level at which theorem numbering resets. |
 
-See [`doc.pdf`](https://github.com/itpyi/hetvid/blob/main/0.2.0/doc/doc.pdf) for a detailed explanation of how to use this template.
+See [`doc.pdf`](https://github.com/itpyi/hetvid/blob/main/doc/doc.pdf) for a detailed explanation of how to use this template.
 
 ## Acknowledgements
 
