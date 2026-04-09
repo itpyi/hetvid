@@ -26,6 +26,7 @@
   header: "Instruction",
   date-created: "2025-03-27",
   // date-modified: "2025-04-22",
+  version: "0.2.1", 
   abstract: [This is a template designed for writing scientific notes#footnote[Test a footnote on the first page.]. ],
   toc: true,
 )
@@ -33,7 +34,7 @@
 In this doc, upcoming features are represented by #text-muted[light font]. 
 
 = Usage<sec-usage>
-#let version = "0.2.0"
+#let version = "0.2.1"
 
 You can import this template in 3 ways.
 - Copy the files (including `hetvid.typ` and `dingli.typ`) to your working directory, and import it by  
@@ -134,7 +135,7 @@ If you do not need to change these default values, you do not need to write them
 
 == Multi-author and affiliations <sec:authors>
 
-Starting from version 0.2.0, the `author` parameter also accepts a list of author dicts for multi-author documents.
+Starting from version 0.2.1, the `author` parameter also accepts a list of author dicts for multi-author documents.
 Each dict has the following keys:
 
 / `name` (content): The author's name.

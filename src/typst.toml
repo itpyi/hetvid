@@ -1,6 +1,6 @@
 [package]
 name = "hetvid"
-version = "0.2.0"
+version = "0.2.1"
 entrypoint = "hetvid.typ"
 authors = ["itpyi"]
 license = "MIT-0"

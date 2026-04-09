@@ -36,11 +36,12 @@ context v(-par.spacing -  measure("").height)
 #let hetvid(
     // Metadata
     title: [Title],
-    author: "The author",
-    affiliation: [The affiliation],
+    author: "",
+    affiliation: [],
     header: "",
     date-created: datetime.today().display(),
     date-modified: datetime.today().display(),
+    version: "",
     abstract: [],
     toc: true,
 
@@ -60,6 +61,7 @@ context v(-par.spacing -  measure("").height)
     body-font-weight: "regular", // set it to 450 if you want book-weight of NewCM fonts
     raw-font-size: 9pt,
     caption-font-size: 10pt,
+    heading-font-size: 20pt,
     heading-font-weight: "regular",
 
     // Colors
@@ -295,12 +297,14 @@ context v(-par.spacing -  measure("").height)
         v(26pt)
         [
         #set par(justify: false)
-        #text(font: heading-font, weight: "bold", size: 20pt, title)
+        #text(font: heading-font, weight: "bold", size: heading-font-size, title)
         #linebreak()
-        #v(16pt)
+        #v(1.5em)
         #format-authors(author, old-affiliation: affiliation, emph-func: emph)
         #counter(footnote).update(0)]
-        v(1em)
+        if author != "" {
+            v(1em)
+        }
         let dc = if lang == "zh" {
             text(font: emph-font)[创建日期：]
         } else {
@@ -311,10 +315,18 @@ context v(-par.spacing -  measure("").height)
         } else {
             smallcaps[Date modified:]
         }
+        let vs = if lang == "zh" {
+            text(font: emph-font)[版#h(2em)本：]
+        } else {
+            smallcaps[Version:]
+        }
         [#dc
         #date-created \ 
         #dm
-        #date-modified]
+        #date-modified \
+        #if version != "" [
+        #vs
+        #version]]
         let abskey = if lang == "zh" {
             "摘要"
         } else {

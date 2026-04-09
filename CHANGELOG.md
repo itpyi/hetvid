@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.1] - 2026-04-09
+
+### Added
+
+- Add a version field, default to be empty.
+- Adjustable heading font size, default to be 20pt as the old version.
+
+### Changed
+
+- Author and affiliation default to be empty, placeholders removed.
+
 ## [0.2.0] - 2026-02-28
 
 ### Added

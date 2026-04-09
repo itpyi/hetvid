@@ -23,7 +23,8 @@
   ),
   header: "说明文档",
   date-created: "2025-03-27",
-  date-modified: "2025-04-28",
+  // date-modified: "2025-04-28",
+  version: "0.2.1",
   abstract: [Hetvid是一个Typst模板，用于创作轻量级的笔记。本文是该模板的实例和说明文档，在介绍特性的同时，也会谈及作者的设计理念。],
   toc: true,
   body-font: ("TeX Gyre Termes", "Songti SC", "Source Han Serif SC"),
@@ -38,7 +39,7 @@
 
 = 调用本模板<sec-diaoyong>
 
-#let version = "0.1.0"
+#let version = "0.2.1"
 
 调用模板的方法有如下三种：
 - 将模板文件复制到工作目录下，在文档中通过
