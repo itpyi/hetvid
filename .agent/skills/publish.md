@@ -13,6 +13,9 @@ In this repo (`hetvid/`):
 - [ ] Set the new version string in `src/typst.toml`.
 - [ ] Update `CHANGELOG.md` with the new version entry.
 - [ ] Update `README.md` if the API or usage has changed.
+
+The following is done by human AFTER the PR is merged. Agent should NEVER do these.
+
 - [ ] Commit: `git commit -m "release v{version}"`
 - [ ] Tag: `git tag v{version}`
 - [ ] Push: `git push && git push --tags`
