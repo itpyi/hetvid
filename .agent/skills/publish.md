@@ -3,6 +3,8 @@
 **Read this file only when you are about to publish a release.**  
 Pre-conditions: the code is complete, tested, and the todo item is marked done.
 
+**You should not modify this file unless explicitly required to modify this file.**
+
 ---
 
 ## 1. Finalize in the dev repo

@@ -1,6 +1,8 @@
 Todo for Agents
 ======================
 
+!!! Always read AGENT.md before working.
+
 ## Version-independent actions
 
 ### Repository structure
@@ -62,3 +64,5 @@ The name-to-affil relation will be displayed by the numbers following each name,
   - [x] Remove the superscripts for the author footnotes so that normal footnotes on the first page can start from 1. If removing is not convenient, replace with other characters. (I prefer removing)
 
 ## Version 0.2.1
+
+- [x] Verify before publish following the rules and skills. Then publish it.

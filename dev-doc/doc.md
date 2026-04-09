@@ -9,7 +9,7 @@
 
 **hetvid** is a Typst package providing an opinionated academic-paper template. It targets bilingual (English/Chinese) documents with support for multi-author affiliations, theorem environments, and styled code blocks.
 
-- **Current version**: 0.2.0
+- **Current version**: 0.2.1
 - **Publishable source**: `src/`
 - **User-facing docs**: `doc/doc.typ`, `doc/doc-cn.typ` + compiled PDFs
 - **Package registry entry**: `src/typst.toml`
@@ -73,6 +73,7 @@ prompts/              # Reusable human prompt templates — DO NOT read autonomo
 |---------|--------|
 | 0.1.0 | Initial release. Single-author template. |
 | 0.2.0 | Multi-author support (`authors.typ` extracted). Email footnotes on title page. Footnote counter reset after title block. |
+| 0.2.1 | Add optional version metadata field, configurable heading size, and remove author/affiliation placeholders. |
 
 > For user-facing changes see `CHANGELOG.md`. For commit history use `git log`.
 

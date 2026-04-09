@@ -16,7 +16,7 @@ The Chinese translation is 因明.
 A minimal setup is as follows:
 
 ```typ
-#import "@preview/hetvid:0.2.0": *
+#import "@preview/hetvid:0.2.1": *
 #show: hetvid.with(
   title: [Hetvid: A Typst template for lightweight notes],
   author: "itpyi",
@@ -45,6 +45,7 @@ The `hetvid` function accepts the following arguments to customize your document
 | `header` | string/content | `[]` | Custom text to appear in the page header. |
 | `date-created` | string | `datetime.today().display()` | Original creation date. |
 | `date-modified` | string | `datetime.today().display()` | Last modification date. |
+| `version` | string | `""` | Version code. |
 | `abstract` | content | `[]` | The abstract content. |
 | `toc` | boolean | `true` | Whether to include a Table of Contents. |
 | `paper-size` | string | `"a4"` | The physical paper size (e.g., `"letter"`, `"a4"`). |
@@ -82,6 +83,12 @@ See [`doc.pdf`](https://github.com/itpyi/hetvid/blob/main/doc/doc.pdf) for a det
 
 ## Changelog
 
+### 0.2.1
+
+- **`version` parameter**: add an optional version field in the title metadata block.
+- **Adjustable heading size**: add configurable heading font size (default `20pt`, matching prior behavior).
+- **Cleaner defaults**: remove placeholder defaults for `author` and `affiliation`.
+
 ### 0.2.0
 
 - **Multi-author support**: `author` now accepts an array of dicts with keys `name`, `affiliation` (content or array of contents), and `email`. Affiliations are automatically deduplicated and numbered; shared affiliations receive the same superscript. Single-author syntax remains fully backward-compatible.
@@ -94,6 +101,5 @@ First released version.
 ## Acknowledgements
 
 This template is inspired by the [kunskap](https://typst.app/universe/package/kunskap/) template.
-
 
 
